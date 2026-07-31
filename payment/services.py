@@ -17,6 +17,12 @@ def calcular_proximo_pago(pago):
 
     return fecha_base + relativedelta(months=1)
 
+def esta_vencido(pago):
+    print(pago.fecha_ultimo_pago)
+    print('Proximo pago:', pago.proximo_pago, 'Fecha actual:', timezone.localdate())
+    if not pago.proximo_pago:
+        return False
+    return timezone.localdate() > pago.proximo_pago
 
 def generar_factura_para_pago(pago_id):
 
@@ -59,3 +65,4 @@ def generar_factura_para_pago(pago_id):
                 pago.titular.save(update_fields=["plan_activo"])
 
         return factura, creada
+

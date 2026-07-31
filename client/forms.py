@@ -49,7 +49,7 @@ class TitularForm(forms.ModelForm):
             'fecha_ingreso': forms.DateInput(attrs={
                 'class': "w-full bg-white border border-[#D4B96A]/40 text-[#2C1F0E] text-xs rounded-lg focus:ring-4 focus:ring-[#D4B96A]/10 focus:border-[#D4B96A] p-2 outline-none transition-all font-['Inter',sans-serif] cursor-pointer",
                 'type': 'date'
-            })
+            }),
         }
 
 class BeneficiarioForm(forms.ModelForm):

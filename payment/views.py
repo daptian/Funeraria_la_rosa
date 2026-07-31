@@ -5,7 +5,7 @@ from django.db.models import Count, Q, Sum
 from django.views.decorators.http import require_POST
 
 from .models import Factura, Pago, Plan
-from .services import generar_factura_para_pago
+from .services import generar_factura_para_pago, esta_vencido
 from client.models import Mascota, Beneficiario
 
 
@@ -33,13 +33,16 @@ def payments_dashboard(request):
 
     resumen = pagos.aggregate(total_recaudo=Sum('monto_total_a_pagar'))
 
-    pagos_vencidos = sum(
-        1 for pago in pagos if pago.esta_vencido
-    )
+    pagos_list = []
+    for pago in pagos:
+        vencido = esta_vencido(pago)
+        if vencido:
+            pago.plan_vencido = True
+            pago.save(update_fields=['plan_vencido'])
+        pagos_list.append(pago)
 
-    pagos_activos = sum(
-        1 for pago in pagos if not pago.esta_vencido
-    )
+    pagos_vencidos = sum(1 for pago in pagos_list if esta_vencido(pago))
+    pagos_activos = sum(1 for pago in pagos_list if not esta_vencido(pago))
 
     context = {
         'pagos': pagos,

@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 class Titular(models.Model):
 
@@ -18,7 +19,7 @@ class Titular(models.Model):
     ocupacion = models.CharField(max_length=150, null=True, blank=True)
     direccion = models.CharField(max_length=255)
     telefono = models.BigIntegerField()
-    fecha_ingreso = models.DateField(auto_now_add=True)
+    fecha_ingreso = models.DateField(default=timezone.now, editable=True)
     plan_activo = models.BooleanField(default=False)
 
     class Meta:

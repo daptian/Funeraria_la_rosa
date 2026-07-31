@@ -122,6 +122,15 @@
                                 <div class="text-[10px] text-white bg-[#8a2a10] rounded py-0.5 px-2 mt-0.5">{{ form.telefono.errors }}</div>
                             {% endif %}
                         </div>
+                        
+
+                        <div>
+                            <label class="text-[11px] font-medium text-[#5a4a35] tracking-wide" for="{{ form.fecha_ingreso.id_for_label }}">Fecha de ingreso </label>
+                            {{ form.fecha_ingreso }}
+                            {% if form.fecha_ingreso.errors %}
+                                <div class="text-[10px] text-white bg-[#8a2a10] rounded py-0.5 px-2 mt-0.5">{{ form.fecha_ingreso.errors }}</div>
+                            {% endif %}
+                        </div>
 
                     </div>
                 </div>
