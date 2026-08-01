@@ -185,6 +185,7 @@ def obtener_contrato(request, titular_id):
 """
 Vista de Configuración
 """
+@login_required
 def config_dashboard(request):
     configuration = {
         plan.id: {

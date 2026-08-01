@@ -1,20 +1,9 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Rosa — Panel de Gestión</title>
-    <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body class="font-['Inter',sans-serif] bg-[#F7F4EE] flex h-screen overflow-hidden text-[#2C1F0E]">
-
-    {% include "./components/nav.html" %}
+{% extends 'base.html' %}
+{% block title %}La Rosa - Panel de Gestion{% endblock %}
+{% block content %}
 
     <main class="flex-1 flex flex-col overflow-hidden">
 
-        <!-- HEADER -->
         <header class="h-14 bg-[#F7F4EE] border-b border-[#D4B96A]/30 flex items-center justify-between px-6 shrink-0">
             <div class="text-[15px] font-medium text-[#2C1F0E]">Panel general</div>
             <div class="flex items-center gap-3">
@@ -251,5 +240,4 @@
         </div>
     </main>
 
-</body>
-</html>
+{% endblock content %}

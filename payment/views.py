@@ -3,13 +3,14 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from django.db.models import Count, Q, Sum
 from django.views.decorators.http import require_POST
-
+from django.contrib.auth.decorators import login_required
 from .models import Factura, Pago, Plan
 from .services import generar_factura_para_pago, esta_vencido
 from client.models import Mascota, Beneficiario
 
 
 # Create your views here.
+@login_required
 def payments_dashboard(request):
     query = request.GET.get('q', '').strip()
     query_date_inicio = request.GET.get('fecha_inicio', '').strip()

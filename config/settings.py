@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 #for Mysql
-#DATABASES = {
+# DATABASES = {
 #   'default' : {
 #        'ENGINE' : 'django.db.backends.mysql',
 #       'NAME':config('DB_NAME'),
@@ -106,7 +106,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 #           'charset': 'utf8mb4',
 #       },
 #   }
-#}
+# }
 
 import dj_database_url
 if not DEBUG:
