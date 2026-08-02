@@ -8,25 +8,29 @@
 
             <form method="GET" action="{% url 'titular_list' %}" class="flex items-center gap-3 flex-wrap">
 
-                <div class="relative">
+                <div class="relative inline-block"> 
+
                     <input
-                        type="text" name="q" value="{{ query|default:'' }}"
+                        type="text" 
+                        name="q" 
+                        value="{{ query|default:'' }}"
                         placeholder="Buscar por cédula, nombre o contrato..."
-                        class="pl-8 pr-4 py-2 rounded-full text-xs outline-none transition-all duration-200"
+                        class="pl-9 pr-4 py-4 rounded-lg text-xs outline-none transition-all duration-200"
                         style="background: #EDE8DD; border: 0.5px solid #D4B96A30; color: #2C1F0E; width: 260px; font-family: 'Inter', sans-serif;"
                         onfocus="this.style.width='320px'; this.style.borderColor='#D4B96A'; this.style.boxShadow='0 0 0 3px #D4B96A18';"
-                        onblur="this.style.width='260px'; this.style.borderColor='#D4B96A30'; this.style.boxShadow='none';">
+                        onblur="this.style.width='260px'; this.style.borderColor='#D4B96A30'; this.style.boxShadow='none';"
+                    >
                 </div>
 
                 <div class="flex items-center gap-2">
                     <input type="date" name="fecha_inicio" value="{{ fecha_inicio }}"
-                        class="px-3 py-2 rounded-lg text-xs outline-none cursor-pointer"
+                        class="px-3 py-4 rounded-lg text-xs outline-none cursor-pointer"
                         style="background: #EDE8DD; border: 0.5px solid #D4B96A30; color: #5a4a35; font-family: 'Inter', sans-serif;"
                         onfocus="this.style.borderColor='#D4B96A'; this.style.boxShadow='0 0 0 3px #D4B96A18';"
                         onblur="this.style.borderColor='#D4B96A30'; this.style.boxShadow='none';">
                     <span class="text-xs" style="color: #9a8a70;">a</span>
                     <input type="date" name="fecha_fin" value="{{ fecha_fin }}"
-                        class="px-3 py-2 rounded-lg text-xs outline-none cursor-pointer"
+                        class="px-3 py-4 rounded-lg text-xs outline-none cursor-pointer"
                         style="background: #EDE8DD; border: 0.5px solid #D4B96A30; color: #5a4a35; font-family: 'Inter', sans-serif;"
                         onfocus="this.style.borderColor='#D4B96A'; this.style.boxShadow='0 0 0 3px #D4B96A18';"
                         onblur="this.style.borderColor='#D4B96A30'; this.style.boxShadow='none';">
@@ -73,16 +77,15 @@
 
             <div class="rounded-xl overflow-hidden" style="background: #fff; border: 0.5px solid #D4B96A25;">
                 <div class="overflow-x-auto w-full">
-                    <table class="w-full text-left border-collapse" style="white-space: nowrap;">
+                    <table class="w-full text-left  border-collapse" style="white-space: nowrap;">
                         <thead>
-                            <tr style="background: #F7F4EE; border-bottom: 0.5px solid #D4B96A20;">
-                                <th class="px-5 py-3" style="font-size: 9px; font-weight: 500; color: #9a8a70; letter-spacing: 0.1em; text-transform: uppercase;">N° Contrato</th>
-                                <th class="px-5 py-3" style="font-size: 9px; font-weight: 500; color: #9a8a70; letter-spacing: 0.1em; text-transform: uppercase;">Titular</th>
-                                <th class="px-5 py-3" style="font-size: 9px; font-weight: 500; color: #9a8a70; letter-spacing: 0.1em; text-transform: uppercase;">Cédula</th>
-                                <th class="px-5 py-3" style="font-size: 9px; font-weight: 500; color: #9a8a70; letter-spacing: 0.1em; text-transform: uppercase;">Edad</th>
-                                <th class="px-5 py-3" style="font-size: 9px; font-weight: 500; color: #9a8a70; letter-spacing: 0.1em; text-transform: uppercase;">Teléfono</th>
-                                <th class="px-5 py-3" style="font-size: 9px; font-weight: 500; color: #9a8a70; letter-spacing: 0.1em; text-transform: uppercase;">Fecha ingreso</th>
-                                <th class="px-5 py-3 text-center" style="font-size: 9px; font-weight: 500; color: #9a8a70; letter-spacing: 0.1em; text-transform: uppercase;">Acciones</th>
+                            <tr class="font-black text-[10px]" style="background: #F7F4EE; border-bottom: 0.5px solid #D4B96A20;">
+                                <th class="px-5 py-3" style=" color: #9a8a70; letter-spacing: 0.1em; text-transform: uppercase;">Titular</th>
+                                <th class="px-5 py-3" style=" color: #9a8a70; letter-spacing: 0.1em; text-transform: uppercase;">Cédula</th>
+                                <th class="px-5 py-3" style=" color: #9a8a70; letter-spacing: 0.1em; text-transform: uppercase;">Edad</th>
+                                <th class="px-5 py-3" style="color: #9a8a70; letter-spacing: 0.1em; text-transform: uppercase;">Teléfono</th>
+                                <th class="px-5 py-3" style="color: #9a8a70; letter-spacing: 0.1em; text-transform: uppercase;">Fecha ingreso</th>
+                                <th class="px-5 py-3 text-center" style="color: #9a8a70; letter-spacing: 0.1em; text-transform: uppercase;">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -90,10 +93,6 @@
                             <tr class="transition-colors" style="border-bottom: 0.5px solid #f0ece4;"
                                 onmouseover="this.style.background='#FAF8F3';"
                                 onmouseout="this.style.background='transparent';">
-
-                                <td class="px-5 py-3.5">
-                                    <span class="font-semibold" style="font-family: monospace; font-size: 12px; color: #D4B96A;">#{{ titular.numero_contrato }}</span>
-                                </td>
 
                                 <td class="px-5 py-4">
                                     <div class="font-medium text-sm" style="color: #2C1F0E;">{{ titular.nombre }}</div>
@@ -107,7 +106,7 @@
 
                                 <td class="px-5 py-3.5 text-xs" style="font-family: monospace; color: #5a4a35;">{{ titular.telefono }}</td>
 
-                                <td class="px-5 py-3.5 text-xs" style="color: #9a8a70;">{{ titular.fecha_ingreso|date:"Y-m-d" }}</td>
+                                <td class="px-5 py-3.5 text-xs" style="color: #9a8a70;">{{ titular.fecha_ingreso|date:"F j, Y" }}</td>
 
                                 <td class="px-5 py-3.5 text-center">
                                     <div class="inline-flex items-center gap-1.5">

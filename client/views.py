@@ -182,6 +182,15 @@ def obtener_contrato(request, titular_id):
 
     return JsonResponse({'contenido': context})
 
+
+"""
+Vista de Reporte
+"""
+@login_required
+def report_dashboard(request):
+    return render(request, "reports/report.html")
+
+
 """
 Vista de Configuración
 """

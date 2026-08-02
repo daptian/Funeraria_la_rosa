@@ -33,7 +33,7 @@
         }
     </style>
 </head>
-<body class="font-['Inter',sans-serif] bg-[#F7F4EE] min-h-screen text-[#2C1F0E]">
+<body class=" bg-[#F7F4EE] min-h-screen text-[#2C1F0E]">
     <div class="no-print flex items-center justify-between px-6 py-4">
         <a href="{% url 'payments' %}"
             class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-medium transition-colors"
@@ -52,9 +52,9 @@
 
     <main class="px-4 pb-8">
         <section class="invoice-receipt bg-white mx-auto rounded-lg px-5 py-6 " style="width: 360px; max-width: calc(100vw - 32px); border: 0.5px solid #D4B96A30; box-shadow: 0 24px 70px rgba(44, 31, 14, 0.08);">
-            <header class="text-center pb-5 " style="border-bottom: 1px dashed #D4B96A80 ;">
+            <header class="text-center pb-5 " style="border-bottom: 1px solid black;">
                 <h1 class="text-2xl font-bold mt-4" style="color: #2C1F0E;">La Rosa</h1>
-                <p class="text-[10px] font-semibold uppercase tracking-[0.14em]" style="color: #9a8a70;">Servicios Funerarios</p>
+                <p class="text-[10px] font-semibold uppercase tracking-[0.14em]" style="color: black;">Servicios Funerarios</p>
                 <p class="text-xs mt-2 font-bold" style="color: #5a4a35;">Nit : 71.556.799-3</p>
                 <p class="text-xs mt-2 font-bold" style="color: #5a4a35;">Calle 20 N° 18 - 11</p>
                 <p class="text-xs font-bold" style="color: #5a4a35;">El Retiro - Antioquia</p>
@@ -64,7 +64,7 @@
                 <p class="text-[11px] mt-1" style="color: #5a4a35;">Fecha: {{ factura.fecha_emision|date:"Y-m-d H:i" }}</p>
             </header>
 
-            <div class=" space-y-4" style="border-bottom: 1px dashed #D4B96A80;">
+            <div class=" space-y-4" style="border-bottom: 1px solid black;">
                 <div>
                     <p class="text-xs text-center py-3 font-bold" style="color: #2C1F0E;">N° de Contrato: {{ factura.titular.numero_contrato }}</p>
                     <p class="uppercase text-xs tracking-[0.14em] font-bold">Titular del servicio</p>
@@ -72,7 +72,7 @@
                     <p class="text-xs mt-1 font-semibold" style="color: #2C1F0E;">C.C.  {{ factura.titular.cedula }}</p>
                 </div>
 
-            <div class="py-1" style="border-bottom: 1px dashed #D4B96A80;">
+            <div class="py-1" style="border-bottom: 1px solid black;">
                 <div class="flex items-center justify-between gap-3 mb-2">
                     <div>
                         <p class="text-[10px] uppercase tracking-[0.14em] font-bold" style="color: #9a8a70;">Periodo pagado</p>
@@ -81,24 +81,26 @@
                     <span class="px-3 py-1 rounded-full text-xs font-medium">{{ factura.get_estado_display }}</span>
                 </div>  
                 <div class="flex items-center justify-between gap-3">
-                        <p class="text-[10px] uppercase tracking-[0.14em] font-bold" style="color: #9a8a70;">Proximo Pago</p>
-
+                    <div>
+                        <p class="text-[10px] uppercase tracking-[0.14em] font-bold" style="color: #9a8a70;">Su fecha de proximo pago:</p>
+                        <p class="text-base font-semibold mt-1" style="color: #2C1F0E;">{{ factura.pago.proximo_pago|date:"d M Y" }}</p>
+                    </div>
                 </div>
             </div>
 
             <table class="w-full mt-5 text-left border-collapse">
                 <thead>
-                    <tr style="border-bottom: 1px dashed #D4B96A80;">
+                    <tr style="border-bottom: 1px solid black;">
                         <th class="py-3 text-[10px] uppercase tracking-[0.14em] font-medium" style="color: #9a8a70;">Concepto</th>
                         <th class="py-3 text-right text-[10px] uppercase tracking-[0.14em] font-medium" style="color: #9a8a70;">Valor</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr style="border-bottom: 1px solid #F3EFE8;">
+                    <tr style="border-bottom: 1px solid black;">
                         <td class="py-3 text-xs" style="color: #5a4a35;">Tarifa mensual</td>
                         <td class="py-3 text-right text-xs" style="font-family: monospace; color: #2C1F0E;">${{ factura.monto_mensual_tarifa|floatformat:0|intcomma }}</td>
                     </tr>
-                    <tr style="border-bottom: 1px solid #F3EFE8;">
+                    <tr style="border-bottom: 1px solid black;">
                         <td class="py-3 text-xs" style="color: #5a4a35;">Cargos unicos</td>
                         <td class="py-3 text-right text-xs" style="font-family: monospace; color: #2C1F0E;">${{ factura.monto_cargos_unicos|floatformat:0|intcomma }}</td>
                     </tr>
@@ -111,9 +113,9 @@
                 </tfoot>
             </table>
 
-            <footer class="text-center mt-6 pt-5" style="border-top: 1px dashed #D4B96A80;">
+            <footer class="text-center mt-6 pt-5" style="border-top: 1px solid black;">
                 <p class="text-[11px]" style="color: #5a4a35;">Gracias por su pago</p>
-                <p class="text-[10px] mt-2" style="color: #9a8a70;">Conserve esta factura como soporte.</p>
+                <p class="text-[10px] mt-2 font-black" style="color: black;">*Conserve esta factura como soporte.*</p>
             </footer>
         </section>
     </main>

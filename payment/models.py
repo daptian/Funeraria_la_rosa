@@ -24,7 +24,7 @@ class Pago(models.Model):
     monto_cargos_unicos = models.DecimalField(max_digits=10, decimal_places=2)
     monto_total_a_pagar = models.DecimalField(max_digits=10, decimal_places=2)
     monto_mensual_tarifa = models.DecimalField(max_digits=10, decimal_places=2)
-    fecha_ultimo_pago = models.DateTimeField(editable=True)
+    fecha_ultimo_pago = models.DateTimeField(default=timezone.now(), editable=True)
     proximo_pago = models.DateField(null=True, blank=True, verbose_name="Proximo Pago")
     plan_vencido = models.BooleanField(default=False)
 

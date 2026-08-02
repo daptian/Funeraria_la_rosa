@@ -1,0 +1,51 @@
+<header class="flex items-center justify-between px-6 py-3 border-b flex-wrap gap-4" style="background: #F7F4EE; border-color: #D4B96A30;">
+
+            <form method="GET" action="{% url 'titular_list' %}" class="flex items-center gap-3 flex-wrap">
+
+                <div class="relative inline-block"> 
+
+                    <input
+                        type="text" 
+                        name="q" 
+                        value="{{ query|default:'' }}"
+                        placeholder="Buscar por cédula, nombre o contrato..."
+                        class="pl-9 pr-4 py-4 rounded-lg text-xs outline-none transition-all duration-200"
+                        style="background: #EDE8DD; border: 0.5px solid #D4B96A30; color: #2C1F0E; width: 260px; font-family: 'Inter', sans-serif;"
+                        onfocus="this.style.width='320px'; this.style.borderColor='#D4B96A'; this.style.boxShadow='0 0 0 3px #D4B96A18';"
+                        onblur="this.style.width='260px'; this.style.borderColor='#D4B96A30'; this.style.boxShadow='none';"
+                    >
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <input type="date" name="fecha_inicio" value="{{ fecha_inicio }}"
+                        class="px-3 py-4 rounded-lg text-xs outline-none cursor-pointer"
+                        style="background: #EDE8DD; border: 0.5px solid #D4B96A30; color: #5a4a35; font-family: 'Inter', sans-serif;"
+                        onfocus="this.style.borderColor='#D4B96A'; this.style.boxShadow='0 0 0 3px #D4B96A18';"
+                        onblur="this.style.borderColor='#D4B96A30'; this.style.boxShadow='none';">
+                    <span class="text-xs" style="color: #9a8a70;">a</span>
+                    <input type="date" name="fecha_fin" value="{{ fecha_fin }}"
+                        class="px-3 py-4 rounded-lg text-xs outline-none cursor-pointer"
+                        style="background: #EDE8DD; border: 0.5px solid #D4B96A30; color: #5a4a35; font-family: 'Inter', sans-serif;"
+                        onfocus="this.style.borderColor='#D4B96A'; this.style.boxShadow='0 0 0 3px #D4B96A18';"
+                        onblur="this.style.borderColor='#D4B96A30'; this.style.boxShadow='none';">
+                </div>
+
+                <button type="submit"
+                    class="flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-medium transition-colors"
+                    style="background: #1C1410; color: #D4B96A; border: 0.5px solid #D4B96A40;"
+                    onmouseover="this.style.background='#2e1f14';"
+                    onmouseout="this.style.background='#1C1410';">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                    </svg>
+                    Filtrar
+                </button>
+
+            </form>
+
+            <div class="flex items-center gap-2 pl-4" style="border-left: 0.5px solid #D4B96A30;">
+                <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium" style="background: #D4B96A22; border: 1px solid #D4B96A44; color: #D4B96A;">A</div>
+                <span class="text-xs font-medium" style="color: #c0a870;">Admin</span>
+            </div>
+
+        </header>

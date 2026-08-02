@@ -7,26 +7,32 @@
     <main class="flex-1 flex flex-col overflow-hidden">
 
         <header class="flex items-center justify-between px-6 py-3 border-b flex-wrap gap-4" style="background: #F7F4EE; border-color: #D4B96A30;">
+
             <form method="GET" action="{% url 'payments' %}" class="flex items-center gap-3 flex-wrap">
-                <div class="relative">
+
+                <div class="relative inline-block"> 
+
                     <input
-                        type="text" name="q" value="{{ query|default:'' }}"
-                        placeholder="Buscar por cedula, nombre o contrato..."
-                        class="pl-8 pr-4 py-2 rounded-full text-xs outline-none transition-all duration-200"
+                        type="text" 
+                        name="q" 
+                        value="{{ query|default:'' }}"
+                        placeholder="Buscar por cédula, nombre o contrato..."
+                        class="pl-9 pr-4 py-4 rounded-lg text-xs outline-none transition-all duration-200"
                         style="background: #EDE8DD; border: 0.5px solid #D4B96A30; color: #2C1F0E; width: 260px; font-family: 'Inter', sans-serif;"
                         onfocus="this.style.width='320px'; this.style.borderColor='#D4B96A'; this.style.boxShadow='0 0 0 3px #D4B96A18';"
-                        onblur="this.style.width='260px'; this.style.borderColor='#D4B96A30'; this.style.boxShadow='none';">
+                        onblur="this.style.width='260px'; this.style.borderColor='#D4B96A30'; this.style.boxShadow='none';"
+                    >
                 </div>
 
                 <div class="flex items-center gap-2">
                     <input type="date" name="fecha_inicio" value="{{ fecha_inicio }}"
-                        class="px-3 py-2 rounded-lg text-xs outline-none cursor-pointer"
+                        class="px-3 py-4 rounded-lg text-xs outline-none cursor-pointer"
                         style="background: #EDE8DD; border: 0.5px solid #D4B96A30; color: #5a4a35; font-family: 'Inter', sans-serif;"
                         onfocus="this.style.borderColor='#D4B96A'; this.style.boxShadow='0 0 0 3px #D4B96A18';"
                         onblur="this.style.borderColor='#D4B96A30'; this.style.boxShadow='none';">
                     <span class="text-xs" style="color: #9a8a70;">a</span>
                     <input type="date" name="fecha_fin" value="{{ fecha_fin }}"
-                        class="px-3 py-2 rounded-lg text-xs outline-none cursor-pointer"
+                        class="px-3 py-4 rounded-lg text-xs outline-none cursor-pointer"
                         style="background: #EDE8DD; border: 0.5px solid #D4B96A30; color: #5a4a35; font-family: 'Inter', sans-serif;"
                         onfocus="this.style.borderColor='#D4B96A'; this.style.boxShadow='0 0 0 3px #D4B96A18';"
                         onblur="this.style.borderColor='#D4B96A30'; this.style.boxShadow='none';">
@@ -42,12 +48,14 @@
                     </svg>
                     Filtrar
                 </button>
+
             </form>
 
             <div class="flex items-center gap-2 pl-4" style="border-left: 0.5px solid #D4B96A30;">
                 <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium" style="background: #D4B96A22; border: 1px solid #D4B96A44; color: #D4B96A;">A</div>
                 <span class="text-xs font-medium" style="color: #c0a870;">Admin</span>
             </div>
+
         </header>
 
         <div class="flex-1 overflow-y-auto p-6">
