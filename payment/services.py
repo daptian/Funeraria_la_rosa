@@ -1,9 +1,10 @@
 from decimal import Decimal
 from django.db import transaction
 from django.utils import timezone
-from .models import Factura, Pago
+from .models import Factura, Pago, Reporte
 from dateutil.relativedelta import relativedelta
 from django.utils import timezone
+
 
 def calcular_proximo_pago(pago):
     fecha_base = (
@@ -65,4 +66,47 @@ def generar_factura_para_pago(pago_id):
                 pago.titular.save(update_fields=["plan_activo"])
 
         return factura, creada
+
+from datetime import timedelta
+
+def generar_reporte(pago_id):
+    print(f"Generando reporte para el pago con ID: {pago_id}")
+
+    with transaction.atomic():
+
+        pago = (
+            Pago.objects
+            .select_for_update()
+            .select_related("titular")
+            .get(pk=pago_id)
+        )
+
+        fecha_hoy = timezone.now().date()
+
+        inicio_semana = fecha_hoy - timedelta(days=fecha_hoy.weekday())
+
+        reporte_diario, creado_d = Reporte.objects.get_or_create(
+            fecha_generacion=fecha_hoy,
+            defaults={
+                'valor_total_recaudado': 0,
+                'diario': True
+            }
+        )
+        reporte_diario.valor_total_recaudado += pago.monto_total_a_pagar
+        reporte_diario.save()
+
+        reporte_semanal, creado_s = Reporte.objects.get_or_create(
+            fecha_generacion=inicio_semana,  
+            defaults={
+                'valor_total_recaudado': 0,
+                'semanal': True
+            }
+        )
+        reporte_semanal.valor_total_recaudado += pago.monto_total_a_pagar
+        reporte_semanal.save()
+
+        print(f"Reporte diario {'creado' if creado_d else 'actualizado'}: {reporte_diario.valor_total_recaudado}")
+        print(f"Reporte semanal {'creado' if creado_s else 'actualizado'}: {reporte_semanal.valor_total_recaudado}")
+
+    print(pago)
 

@@ -24,7 +24,7 @@ class Pago(models.Model):
     monto_cargos_unicos = models.DecimalField(max_digits=10, decimal_places=2)
     monto_total_a_pagar = models.DecimalField(max_digits=10, decimal_places=2)
     monto_mensual_tarifa = models.DecimalField(max_digits=10, decimal_places=2)
-    fecha_ultimo_pago = models.DateTimeField(default=timezone.now(), editable=True)
+    fecha_ultimo_pago = models.DateTimeField(default=timezone.now, editable=True)
     proximo_pago = models.DateField(null=True, blank=True, verbose_name="Proximo Pago")
     plan_vencido = models.BooleanField(default=False)
 
@@ -114,3 +114,19 @@ class Factura(models.Model):
 
     def __str__(self):
         return f"{self.numero or 'Factura'} - {self.titular} - {self.periodo_nombre}"
+
+
+class Reporte(models.Model):
+    valor_total_recaudado = models.DecimalField(max_digits=10, decimal_places=2)
+    diario = models.BooleanField(default=False)
+    semanal = models.BooleanField(default=False)
+    mensual = models.BooleanField(default=False)
+    fecha_generacion = models.DateField()
+
+    class Meta:
+        db_table = 'Reporte'
+        verbose_name = 'Reporte'
+        verbose_name_plural = 'Reportes'
+
+    def __str__(self):
+        return f"Reporte - {self.fecha_generacion.strftime('%Y-%m-%d %H:%M:%S')}"

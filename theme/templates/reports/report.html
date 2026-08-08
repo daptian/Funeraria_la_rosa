@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load humanize %}
 {% block content %}
     <main class="flex-1 flex flex-col overflow-hidden">
         <div class="p-6">
@@ -11,7 +11,20 @@
 
             <div>
                 <h3 class="text-sm text-[#9a8a70] uppercase">Reportes</h3>
-                
+                {% if reportes %}
+                    <div class="mt-4 flex gap-3">
+                        {% for reporte in reportes %}
+                            <div class="mb-4 p-4 border rounded-lg bg-white">
+                                <div class="flex flex-col justify-between mb-2">
+                                    <h4 class="text-sm font-semibold mb-2">Reporte del dia {{ reporte.fecha_generacion }}</h4>
+                                    <span class="text-sm text-[#7a6a52]">Valor Total Recaudado: {{ reporte.valor_total_recaudado|intcomma }} COP</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-sm text-[#9a8a70] mt-2">No hay reportes generados.</p>
+                {% endif %}
             </div>
 
         </div>

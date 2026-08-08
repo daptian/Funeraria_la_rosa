@@ -4,8 +4,8 @@ from django.db import transaction
 from django.db.models import Count, Q, Sum
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-from .models import Factura, Pago, Plan
-from .services import generar_factura_para_pago, esta_vencido
+from .models import Factura, Pago, Plan, Reporte
+from .services import generar_factura_para_pago, esta_vencido, generar_reporte
 from client.models import Mascota, Beneficiario
 
 
@@ -59,6 +59,7 @@ def payments_dashboard(request):
 
 @require_POST
 def generar_factura(request, pago_id):
+    reporte = generar_reporte(pago_id)
     factura, _ = generar_factura_para_pago(pago_id)
     return redirect('invoice_detail', factura_id=factura.id)
 
@@ -111,4 +112,12 @@ def calcular_monto_plan(id_titular):
         raise ObjectDoesNotExist(f"No se encontró un registro de Pago para el titular con ID {id_titular}")
 
 
-    
+
+"""
+Vista de Reporte
+"""
+@login_required
+def report_dashboard(request):
+    reportes = Reporte.objects.all().order_by('-fecha_generacion')
+    return render(request, "reports/report.html", {'reportes': reportes})
+
