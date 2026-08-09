@@ -16,8 +16,9 @@ from django.contrib.auth.decorators import login_required
 from payment.forms import PlanForm
 from django.contrib import messages
 from django.forms.models import model_to_dict
+from historial.models import AccionHistorial
 
-
+@login_required
 def titular_list(request):
 
     print("peticion desde:", request)
@@ -59,10 +60,26 @@ def titular_list(request):
     }
     return render(request, 'titular.html', context)
 
-
+@login_required
 def titular_dashboard(request):
     titulares_count = Titular.objects.count()
-    return render(request, 'dashboard.html', {'titulares_count': titulares_count})
+    
+    # Obtén directamente los datos
+    historial = AccionHistorial.objects.all()
+    
+    tipo = request.GET.get('tipo_accion')
+    if tipo:
+        historial = historial.filter(tipo_accion=tipo)
+    
+    historial = historial[:10]
+    
+    context = {
+        'titulares_count': titulares_count,
+        'acciones': historial,
+        'tipos': AccionHistorial.TIPOS_ACCION
+    }
+    
+    return render(request, 'dashboard.html', context)
 
 
 def crear_titular(request):
@@ -222,9 +239,10 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
+                messages.success(request, f"Bienvenido, {username}!")
                 return redirect('dashboard')
         else:
-            pass
+            messages.error(request, "Nombre de usuario o contraseña incorrectos.")
     else:
         form = AuthenticationForm()
     

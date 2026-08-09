@@ -28,21 +28,7 @@
                 <h2 class="text-xl font-semibold text-[#2C1F0E] mb-1">Iniciar sesión</h2>
             </div>
 
-            {% if form.non_field_errors %}
-                <div class="mb-6 p-4 bg-[#8a2a10]/10 border border-[#8a2a10]/30 rounded-lg">
-                    <div class="flex items-start gap-3">
-                        <svg class="w-5 h-5 text-[#8a2a10] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                        </svg>
-                        <div>
-                            <p class="font-medium text-[#8a2a10] text-sm">Error en el inicio de sesión</p>
-                            {% for error in form.non_field_errors %}
-                                <p class="text-[#8a2a10] text-sm mt-1">{{ error }}</p>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
+            
 
             <form action="{% url 'login' %}" method="post" class="space-y-5">
                 {% csrf_token %}
@@ -59,16 +45,7 @@
                         class="w-full px-4 py-3 border border-[#D4B96A]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4B96A] focus:border-transparent bg-[#F7F4EE] text-[#2C1F0E] placeholder-[#9a8a70] transition-all"
                         required
                     >
-                    {% if form.username.errors %}
-                        <div class="mt-2 p-3 bg-[#8a2a10]/10 border border-[#8a2a10]/30 rounded">
-                            <p class="text-[#8a2a10] text-xs font-medium flex items-center gap-2">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                                </svg>
-                                {{ form.username.errors.0 }}
-                            </p>
-                        </div>
-                    {% endif %}
+
                 </div>
 
                 <div>
@@ -110,6 +87,21 @@
                 <p>© 2026 La Rosa - Servicios Funerarios</p>
             </div>
         </div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="absolute top-5 mb-6 p-4 bg-[#8a2a10]/10 border border-[#8a2a10]/30 rounded-lg">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-[#8a2a10] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L₁₀ 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div>
+                                <p class="font-medium text-[#8a2a₁₀] text-sm">{{ message }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
     </main>
 
 </body>

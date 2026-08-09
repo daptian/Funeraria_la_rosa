@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load humanize %}
 {% block content %}
-    <main class="flex-1 flex flex-col overflow-hidden">
+{%load static %}
+    <main class="flex-1 flex flex-col " style="background: #F7F4EE; color: #2C1F0E;">
         <div class="p-6">
             <div class="flex items-start justify-between mb-5 border-b border-[#D4B96A]/30 pb-4">
                 <div>
@@ -11,22 +12,230 @@
 
             <div>
                 <h3 class="text-sm text-[#9a8a70] uppercase">Reportes</h3>
-                {% if reportes %}
-                    <div class="mt-4 flex gap-3">
-                        {% for reporte in reportes %}
-                            <div class="mb-4 p-4 border rounded-lg bg-white">
-                                <div class="flex flex-col justify-between mb-2">
-                                    <h4 class="text-sm font-semibold mb-2">Reporte del dia {{ reporte.fecha_generacion }}</h4>
-                                    <span class="text-sm text-[#7a6a52]">Valor Total Recaudado: {{ reporte.valor_total_recaudado|intcomma }} COP</span>
+                <h4 class="text-lg font-bold"> Reportes de ingresos generados </h4>
+                <p class="text-sm text-[#9a8a70] mt-2"> Los ingresos visualizados son los pagos realizados y registrados. </p>
+                    <div class="mt-4 w-full ">
+                        <div class="w-full flex gap-4">
+                        {% if ultimo_diario or ultimo_semanal or ultimo_mensual %}
+                            <div class="bg-white p-4 flex justify-between items-center rounded-md w-full border hover:bg-transparent transition-all hover:border hover:border-black">
+                                <div>
+                                    <h5 class="text-md font-semibold text-[#80735c] uppercase mb-1">Ingresos del {{ ultimo_diario.fecha_generacion|date:"l d  F" }}</h5>
+                                     <h5 class="text-lg text-[#353027] font-black ">$ {{ ultimo_diario.valor_total_recaudado|intcomma }}</h5>
+                                    <p class="text-sm text-[#9a8a70] mt-2">Generado el {{ ultimo_diario.fecha_generacion|date:"l, d/m/Y" }}</p>
                                 </div>
+                                    <div class=" flex items-center justify-center w-12 h-12 rounded-full text-[#2f2a1b]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 2.994v2.25m10.5-2.25v2.25m-14.252 13.5V7.491a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v11.251m-18 0a2.25 2.25 0 0 0 2.25 2.25h13.5a2.25 2.25 0 0 0 2.25-2.25m-18 0v-7.5a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v7.5m-6.75-6h2.25m-9 2.25h4.5m.002-2.25h.005v.006H12v-.006Zm-.001 4.5h.006v.006h-.006v-.005Zm-2.25.001h.005v.006H9.75v-.006Zm-2.25 0h.005v.005h-.006v-.005Zm6.75-2.247h.005v.005h-.005v-.005Zm0 2.247h.006v.006h-.006v-.006Zm2.25-2.248h.006V15H16.5v-.005Z" />
+                                        </svg>
+                                    </div>
                             </div>
-                        {% endfor %}
+                        </div>
+                        <div class="w-full flex gap-4 mt-4">
+                            <div class="bg-white p-4 rounded-md w-full border hover:bg-transparent transition-all hover:border hover:border-black">
+                                    <h5 class="text-md font-semibold text-[#80735c] uppercase mb-1">Reporte de la semana del {{ ultimo_semanal.fecha_generacion|date:"d/m/Y" }}</h5>
+                                     <h5 class="text-lg text-[#353027] font-black ">$ {{ ultimo_semanal.valor_total_recaudado|intcomma }}</h5>
+                                    <p class="text-sm text-[#9a8a   70] mt-2">Generado el {{ ultimo_semanal.fecha_generacion|date:"l, d/m/Y" }}</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-md w-full border hover:bg-transparent transition-all hover:border hover:border-black">
+                                <h5 class="text-md font-semibold text-[#80735c] uppercase mb-1">Reporte Mensual de {{ ultimo_mensual.fecha_generacion|date:" F Y" }}</h5>
+                                     <h5 class="text-lg text-[#353027] font-black ">$ {{ ultimo_mensual.valor_total_recaudado|intcomma }}</h5>
+                                    <p class="text-sm text-[#9a8a   70] mt-2">Generado el {{ ultimo_mensual.fecha_generacion|date:"l, d/m/Y" }}</p>
+                            </div>
+                        </div>
+                            <div class="w-full flex justify-end mt-4">
+                            <aside> 
+                            </aside>
+                            <a class="w-max text-sm flex justify-between items-center gap-2 border-b border-[#2d261b] text-[#2d261b] " href="#"> 
+                                Descargar reporte completo
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-download">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+                                    <path d="M12 17v-6" />
+                                    <path d="M9.5 14.5l2.5 2.5l2.5 -2.5" />
+                                </svg>
+                            </a> 
+                       </div>
                     </div>
-                {% else %}
-                    <p class="text-sm text-[#9a8a70] mt-2">No hay reportes generados.</p>
-                {% endif %}
+                    {% else %}
+                        <p class="text-sm text-[#9a8a70] mt-2">No hay reportes generados.</p>
+                    {% endif %}
             </div>
+            <div class="container w-full p-6 ">
+    
+    <!-- GRÁFICO DIARIO -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold text-dark-brown mb-4">Ingresos diarios (Últimos 30 días)</h2>
+            <div class="relative" style="height: 300px;">
+                <canvas id="chartDiario"></canvas>
+            </div>
+        </div>
+     <div class="grid grid-cols-2 gap-2" >
+
+        
+        <!-- GRÁFICO SEMANAL -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold text-dark-brown mb-4">Recaudación Semanal</h2>
+            <div class="relative" style="height: 300px;">
+                <canvas id="chartSemanal"></canvas>
+            </div>
+        </div>
+
+            
+    <!-- GRÁFICO MENSUAL -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold text-dark-brown mb-4">Recaudación Mensual</h2>
+            <div class="relative" style="height: 300px;">
+                <canvas id="chartMensual"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<!-- Incluir Chart.js desde CDN -->
+
+
+<script>
+    // Colores personalizados
+    const colorPrimario = '#1d1411';  // Marrón oscuro
+    const colorSecundario = '#d4af37'; // Oro
+    const colorFondo = 'rgba(212, 175, 55, 0.1)'; // Oro transparente
+
+    // CONFIGURACIÓN GENERAL PARA TODOS LOS GRÁFICOS
+    const opcionesGraficos = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: true,
+                labels: {
+                    color: colorPrimario,
+                    font: { size: 12, weight: 'bold' }
+                }
+            },
+            tooltip: {
+                backgroundColor: colorPrimario,
+                titleColor: '#fff',
+                bodyColor: '#fff',
+                padding: 10,
+                displayColors: false
+            },
+            filler: {
+                propagate: true
+            }
+        },
+        scales: {
+            x: {
+                ticks: { color: colorPrimario },
+                grid: { color: 'rgba(0,0,0,0.1)' }
+            },
+            y: {
+                beginAtZero: true,
+                ticks: { color: colorPrimario },
+                grid: { color: 'rgba(0,0,0,0.1)' }
+            }
+        }
+    };
+
+    // GRÁFICO DIARIO - Línea
+    function crearGraficoDiario() {
+        fetch('{% url "api_reportes_diarios" %}')
+            .then(response => response.json())
+            .then(data => {
+                const ctx = document.getElementById('chartDiario').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            label: 'Recaudación ($)',
+                            data: data.data,
+                            borderColor: colorSecundario,
+                            backgroundColor: colorFondo,
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 5,
+                            pointBackgroundColor: colorSecundario,
+                            pointBorderColor: colorPrimario,
+                            pointBorderWidth: 2
+                        }]
+                    },
+                    options: opcionesGraficos
+                });
+            })
+            .catch(error => console.error('Error cargando datos diarios:', error));
+    }
+
+    // GRÁFICO SEMANAL - Barras
+    function crearGraficoSemanal() {
+        fetch('{% url "api_reportes_semanales" %}')
+            .then(response => response.json())
+            .then(data => {
+                const ctx = document.getElementById('chartSemanal').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            label: 'Recaudación ($)',
+                            data: data.data,
+                            backgroundColor: colorFondo,
+                            borderColor: colorSecundario,
+                            borderWidth: 2,
+                            borderRadius: 5,
+                            hoverBackgroundColor: colorSecundario,
+                        }]
+                    },
+                    options: opcionesGraficos
+                });
+            })
+            .catch(error => console.error('Error cargando datos semanales:', error));
+    }
+
+    // GRÁFICO MENSUAL - Área
+    function crearGraficoMensual() {
+        fetch('{% url "api_reportes_mensuales" %}')
+            .then(response => response.json())
+            .then(data => {
+                const ctx = document.getElementById('chartMensual').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            label: 'Recaudación ($)',
+                            data: data.data,
+                            borderColor: colorSecundario,
+                            backgroundColor: colorFondo,
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.3,
+                            pointRadius: 6,
+                            pointBackgroundColor: colorSecundario,
+                            pointBorderColor: colorPrimario,
+                            pointBorderWidth: 2,
+                            pointHoverRadius: 8
+                        }]
+                    },
+                    options: opcionesGraficos
+                });
+            })
+            .catch(error => console.error('Error cargando datos mensuales:', error));
+    }
+
+    // Ejecutar cuando carga la página
+    document.addEventListener('DOMContentLoaded', () => {
+        crearGraficoDiario();
+        crearGraficoSemanal();
+        crearGraficoMensual();
+    });
+</script>
 
         </div>
     </main>
+
 {% endblock content %}
