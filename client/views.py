@@ -123,11 +123,21 @@ def crear_beneficiario(request):
         if form_beneficiario.is_valid():
             beneficiario = form_beneficiario.save()
             calcular_monto_plan(beneficiario.titular.id)
+            is_ajax = (
+                request.headers.get('X-Requested-With') == 'XMLHttpRequest' or
+                'application/json' in request.headers.get('Accept', '')
+            )
 
-            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            if is_ajax:
                 return JsonResponse({'success': True})
             return redirect('titular_list')
-        
+        is_ajax = (
+            request.headers.get('X-Requested-With') == 'XMLHttpRequest' or
+            'application/json' in request.headers.get('Accept', '')
+        )
+        if is_ajax:
+            return JsonResponse({'success': False, 'errors': form_beneficiario.errors}, status=400)
+
         context = {'form_beneficiario': form_beneficiario}
         return render(request, 'registro_beneficiario.html', context)
     
@@ -141,8 +151,6 @@ def crear_mascota(request):
         if form_mascota.is_valid():
             mascota = form_mascota.save()
             calcular_monto_plan(mascota.titular.id)
-            
-            # Si es una petición AJAX/Fetch, respondemos con JSON
             if request.headers.get('x-requested-with') == 'XMLHttpRequest' or request.content_type == 'application/json':
                 return JsonResponse({
                     'success': True,
@@ -150,8 +158,7 @@ def crear_mascota(request):
                         'id': mascota.id,
                         'nombre': mascota.nombre,
                         'especie': mascota.especie,
-                        # Puedes agregar aquí la fecha de afiliación si tu modelo la tiene:
-                        # 'fecha': mascota.fecha_afiliacion.strftime('%d/%m/%Y') 
+                        'fecha': mascota.fecha_afiliacion.strftime('%d/%m/%Y') 
                     }
                 })
             
@@ -253,6 +260,15 @@ Vista de Configuración
 """
 @login_required
 def config_dashboard(request):
+    if not Plan.objects.exists():
+        Plan.objects.create(
+            valor_mensual=000,
+            valor_mascotas=0.00,
+            valor_beneficiario_extra=0.00,
+            valor_cobro_edad=0.00,
+            edad_maxima=0
+        )
+
     configuration = {
         plan.id: {
             'valor_mensual': plan.valor_mensual,
@@ -274,8 +290,7 @@ def editar_configuracion(request, pk):
         return redirect('config')
     else:
         form = PlanForm(instance=plan)
-    return render(request, "settings/editplans.html", {'plan': plan, 'form': form})
-
+    return render(request, "settings/editplans.html", {'plan': plan, 'form': form })
 
 #Vista de login
 def login_view(request):
