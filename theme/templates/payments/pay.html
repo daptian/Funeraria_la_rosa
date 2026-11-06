@@ -6,36 +6,33 @@
 
     <main class="flex-1 flex flex-col overflow-hidden">
 
-        <header class="flex items-center justify-between px-6 py-3 border-b flex-wrap gap-4" style="background: #F7F4EE; border-color: #D4B96A30;">
+        <header class="flex items-center justify-between px-6 py-3  gap-4 bg-[#1d1411]">
 
-            <form method="GET" action="{% url 'payments' %}" class="flex items-center gap-3 flex-wrap">
+            <form method="GET" action="{% url 'payments' %}" class="flex items-center gap-3 flex-wrap ">
 
-                <div class="relative inline-block"> 
-
+                <div class="flex flex-col gap-1 "> 
+                    <span class="text-sm text-gray-400 font-medium">
+                        Busqueda de titular
+                    </span>
                     <input
                         type="text" 
                         name="q" 
                         value="{{ query|default:'' }}"
                         placeholder="Buscar por cédula, nombre o contrato..."
-                        class="pl-9 pr-4 py-4 rounded-lg text-xs outline-none transition-all duration-200"
-                        style="background: #EDE8DD; border: 0.5px solid #D4B96A30; color: #2C1F0E; width: 260px; font-family: 'Inter', sans-serif;"
-                        onfocus="this.style.width='320px'; this.style.borderColor='#D4B96A'; this.style.boxShadow='0 0 0 3px #D4B96A18';"
-                        onblur="this.style.width='260px'; this.style.borderColor='#D4B96A30'; this.style.boxShadow='none';"
-                    >
+                        class=" py-3 rounded-lg text-xs outline-none text-white transition-all duration-200 bg-[#362a1e] border-none placeholder:text-gray-300" >
                 </div>
 
                 <div class="flex items-center gap-2">
-                    <input type="date" name="fecha_inicio" value="{{ fecha_inicio }}"
-                        class="px-3 py-4 rounded-lg text-xs outline-none cursor-pointer"
-                        style="background: #EDE8DD; border: 0.5px solid #D4B96A30; color: #5a4a35; font-family: 'Inter', sans-serif;"
-                        onfocus="this.style.borderColor='#D4B96A'; this.style.boxShadow='0 0 0 3px #D4B96A18';"
-                        onblur="this.style.borderColor='#D4B96A30'; this.style.boxShadow='none';">
-                    <span class="text-xs" style="color: #9a8a70;">a</span>
-                    <input type="date" name="fecha_fin" value="{{ fecha_fin }}"
-                        class="px-3 py-4 rounded-lg text-xs outline-none cursor-pointer"
-                        style="background: #EDE8DD; border: 0.5px solid #D4B96A30; color: #5a4a35; font-family: 'Inter', sans-serif;"
-                        onfocus="this.style.borderColor='#D4B96A'; this.style.boxShadow='0 0 0 3px #D4B96A18';"
-                        onblur="this.style.borderColor='#D4B96A30'; this.style.boxShadow='none';">
+                    <div class="flex flex-col gap-1">
+                        <span class="text-sm text-gray-400 font-medium">
+                            Fecha Inicio
+                        </span>
+                        <input type="date" name="fecha_inicio" value="{{ fecha_inicio }}" class=" bg-[#362a1e] py-3 rounded-lg text-xs border-none cursor-pointer text-white">
+                    </div>
+                    <div class="flex flex-col text-gray-400 font-medium">
+                        <span class="text-sm" >Fecha FIn</span>
+                        <input type="date" name="fecha_fin" value="{{ fecha_fin }}" class=" bg-[#362a1e] text-white py-3 rounded-lg text-xs border-none cursor-pointer">
+                    </div>
                 </div>
 
                 <button type="submit"

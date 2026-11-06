@@ -1,107 +1,174 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>La Rosa - Login</title>
+
     <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">
     <link rel="icon" type="image/png" href="{% static 'imgs/favicon.png' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body class="font-['Inter',sans-serif] bg-gradient-to-br from-[#F7F4EE] to-[#EBE5D9] min-h-screen flex items-center justify-center">
 
-    <main class="w-full max-w-md px-6">
-        <div class="text-center mb-10">
-            <div class="inline-block mb-4">
-                <div class="w-16 h-16 bg-[#D4B96A]/20rounded-full flex items-center justify-center border border-[#D4B96A]/40">
-                    <img src="{% static 'imgs/favicon.png' %}" alt="Logo" class="w-10 h-10">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+</head>
+
+<body class="min-h-screen flex items-center justify-center px-4 py-8 sm:py-12 bg-gradient-to-br from-[#F7F4EE] to-[#EBE5D9] font-['Inter',sans-serif]">
+
+    <main class="w-full max-w-md mx-auto">
+        <header class="text-center mb-8 sm:mb-10">
+
+            <div class="flex justify-center mb-4">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center rounded-full bg-[#D4B96A]/20 border border-[#D4B96A]/40 shadow-sm">
+
+                    <img
+                        src="{% static 'imgs/favicon.png' %}"
+                        alt="Logo de La Rosa"
+                        class="w-10 h-10 sm:w-12 sm:h-12 object-contain"
+                    >
+
                 </div>
             </div>
-            <h1 class="text-3xl font-bold text-[#2C1F0E] mb-2">La Rosa</h1>
-            <p class="text-[#7a6a52] text-sm">Servicios Funerarios</p>
-        </div>
 
-        <div class="bg-white rounded-2xl shadow-lg border border-[#D4B96A]/20 p-8 backdrop-blur">
-            
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-[#2C1F0E] mb-1">Iniciar sesión</h2>
+            <h1 class="text-3xl sm:text-4xl font-bold text-[#2C1F0E] tracking-tight mb-2">
+                La Rosa
+            </h1>
+
+            <p class="text-sm sm:text-base text-[#7a6a52] font-normal">
+                Servicios Funerarios
+            </p>
+
+        </header>
+
+        <section class="w-full bg-white rounded-2xl sm:rounded-3xl shadow-lg border border-[#D4B96A]/20 p-6 sm:p-8 backdrop-blur">
+            <div class="mb-7">
+                <h2 class="text-xl sm:text-2xl font-semibold text-[#2C1F0E] mb-1">
+                    Iniciar sesión
+                </h2>
             </div>
 
-            
+            <form
+                action="{% url 'login' %}"
+                method="post"
+                class="flex flex-col gap-5"
+            >
 
-            <form action="{% url 'login' %}" method="post" class="space-y-5">
                 {% csrf_token %}
-                
-                <div>
-                    <label for="username" class="block text-sm font-medium text-[#5a4a35] mb-2">
-                        Usuario <span class="text-[#D4B96A]">*</span>
+
+                <div class="w-full">
+
+                    <label
+                        for="username"
+                        class="block text-sm font-medium text-[#5a4a35] mb-2"
+                    >
+                        Usuario
+                        <span class="text-[#D4B96A]">*</span>
                     </label>
-                    <input 
-                        type="text" 
-                        name="username" 
+
+                    <input
+                        type="text"
+                        name="username"
                         id="username"
                         placeholder="Ingresa tu usuario"
-                        class="w-full px-4 py-3 border border-[#D4B96A]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4B96A] focus:border-transparent bg-[#F7F4EE] text-[#2C1F0E] placeholder-[#9a8a70] transition-all"
+                        autocomplete="username"
+                        class="w-full h-12 px-4 text-sm sm:text-base bg-[#F7F4EE] text-[#2C1F0E] placeholder-[#9a8a70] border border-[#D4B96A]/30 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#D4B96A] focus:border-transparent"
                         required
                     >
 
                 </div>
 
-                <div>
-                    <label for="password" class="block text-sm font-medium text-[#5a4a35] mb-2">
-                        Contraseña <span class="text-[#D4B96A]">*</span>
+                <div class="w-full">
+
+                    <label
+                        for="password"
+                        class="block text-sm font-medium text-[#5a4a35] mb-2"
+                    >
+                        Contraseña
+                        <span class="text-[#D4B96A]">*</span>
                     </label>
-                    <input 
-                        type="password" 
-                        name="password" 
+
+                    <input
+                        type="password"
+                        name="password"
                         id="password"
                         placeholder="Ingresa tu contraseña"
-                        class="w-full px-4 py-3 border border-[#D4B96A]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4B96A] focus:border-transparent bg-[#F7F4EE] text-[#2C1F0E] placeholder-[#9a8a70] transition-all"
+                        autocomplete="current-password"
+                        aria-invalid="{% if form.password.errors %}true{% else %}false{% endif %}"
+                        class="w-full h-12 px-4 text-sm sm:text-base bg-[#F7F4EE] text-[#2C1F0E] placeholder-[#9a8a70] border border-[#D4B96A]/30 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#D4B96A] focus:border-transparent"
                         required
                     >
                     {% if form.password.errors %}
-                        <div class="mt-2 p-3 bg-[#8a2a10]/10 border border-[#8a2a10]/30 rounded">
-                            <p class="text-[#8a2a10] text-xs font-medium flex items-center gap-2">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+
+                        <div
+                            class="mt-3 p-3 sm:p-4 bg-[#8a2a10]/10 border border-[#8a2a10]/30 rounded-lg"
+                            role="alert"
+                        >
+
+                            <p class="text-[#8a2a10] text-xs sm:text-sm font-medium flex items-start gap-2">
+
+                                <svg
+                                    class="w-4 h-4 shrink-0 mt-0.5"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                        clip-rule="evenodd"
+                                    ></path>
                                 </svg>
-                                {{ form.password.errors.0 }}
+
+                                <span>
+                                    {{ form.password.errors.0 }}
+                                </span>
+
                             </p>
+
                         </div>
+
                     {% endif %}
+
                 </div>
 
-                <button 
-                    type="submit"
-                    class="w-full bg-gradient-to-r from-[#D4B96A] to-[#c4a95a] text-[#1C1410] font-semibold py-3 px-4 rounded-lg hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 mt-6 border border-[#D4B96A]/30"
-                >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+                <button type="submit" class="w-full min-h-12 mt-2 px-4 py-3 flex items-center justify-center gap-3 bg-gradient-to-r from-[#D4B96A] to-[#c4a95a] text-[#1C1410] text-sm sm:text-base font-semibold rounded-xl border border-[#D4B96A]/30 transition-all duration-200 hover:shadow-lg active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#D4B96A] focus:ring-offset-2">
+                    <svg
+                        class="w-5 h-5 shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M13 5l7 7-7 7M5 5l7-7"
+                        ></path>
                     </svg>
+
                     Ingresar
+
                 </button>
+
             </form>
 
-            <div class="mt-8 pt-6 border-t border-[#D4B96A]/20 text-center text-xs text-[#7a6a52]">
-                <p>© 2026 La Rosa - Servicios Funerarios</p>
-            </div>
-        </div>
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="absolute top-5 mb-6 p-4 bg-[#8a2a10]/10 border border-[#8a2a10]/30 rounded-lg">
-                        <div class="flex items-start gap-3">
-                            <svg class="w-5 h-5 text-[#8a2a10] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L₁₀ 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                            </svg>
-                            <div>
-                                <p class="font-medium text-[#8a2a₁₀] text-sm">{{ message }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            {% endif %}
+
+            <!-- Pie del formulario -->
+            <footer class="mt-8 pt-5 border-t border-[#D4B96A]/20 text-center">
+
+                <p class="text-xs sm:text-sm text-[#7a6a52]">
+                    © 2026 La Rosa - Servicios Funerarios
+                </p>
+
+            </footer>
+
+        </section>
+
     </main>
 
 </body>

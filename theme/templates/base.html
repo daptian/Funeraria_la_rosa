@@ -13,10 +13,21 @@
 		<link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">
 		<link rel="icon" type="image/png" href="{% static 'imgs/favicon.png' %}">   
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+		<style>
+			#desktop-navigation { display: none; }
+			#mobile-navigation { display: block; }
+			@media (min-width: 768px) {
+				body { flex-direction: row !important; }
+				#desktop-navigation { display: flex; }
+				#mobile-navigation { display: none; }
+			}
+		</style>
 	</head>
 
-	<body class="flex" style="background: #F7F4EE; color: #2C1F0E;">
+	<body class="flex flex-col md:flex-row font-sans" style="background: #F7F4EE; color: #2C1F0E; ">
 		{% include './components/nav.html' %}
 		{% block content %}
 		

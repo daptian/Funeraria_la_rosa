@@ -17,6 +17,7 @@ from payment.forms import PlanForm
 from django.contrib import messages
 from django.forms.models import model_to_dict
 from historial.models import AccionHistorial
+from django.urls import reverse
 
 @login_required
 def titular_list(request):
@@ -49,20 +50,32 @@ def titular_list(request):
             fecha_ingreso__range=[query_date_inicio, query_date_fin]
         )
 
+    elementos_por_pagina = 10
+    paginator = Paginator(titulares, elementos_por_pagina)
+
+    numero_pagina = request.GET.get('page')
+    page_obj =paginator.get_page(numero_pagina)
+
+
     context = {
         'query': query,
-        'titulares': titulares,
+        'page_obj': page_obj,
         'form' : form,
         'form_beneficiario' : form_beneficiario,
         'form_mascota' : form_mascota,
         'fecha_inicio': query_date_inicio,
         'fecha_fin': query_date_fin
+
     }
     return render(request, 'titular.html', context)
 
+def eliminar_contrato(request, titular_id):
+    titular = get_object_or_404(Titular, id=titular_id)
+    titular.delete()
+    return JsonResponse({'success': True, 'message': 'Contrato eliminado correctamente.'})
+
 @login_required
 def titular_dashboard(request):
-    titulares_count = Titular.objects.count()
     
     # Obtén directamente los datos
     historial = AccionHistorial.objects.all()
@@ -74,7 +87,6 @@ def titular_dashboard(request):
     historial = historial[:10]
     
     context = {
-        'titulares_count': titulares_count,
         'acciones': historial,
         'tipos': AccionHistorial.TIPOS_ACCION
     }
@@ -154,6 +166,22 @@ def crear_mascota(request):
 
 
 # Paginación
+def obtener_titulares_paginados(request):
+    titulares = list(Titular.objects.values('nombre', 'apellido', 'sexo', 'edad', 'cedula', 'estado_civil', 'ocupacion','direccion', 'fecha_ingreso'))
+    titulares_por_pagina = 10
+    paginator = Paginator(titulares, titulares_por_pagina)
+
+    numero_pagina = request.GET.get('page', 1)
+    pagina_actual = paginator.get_page(numero_pagina)
+
+    return JsonResponse({
+        'titulares' : pagina_actual.object_list,
+        'tiene_siguiente': pagina_actual.has_next(),
+        'tiene_anterior': pagina_actual.has_previous(),
+        'pagina_actual': pagina_actual.number,
+        'total_paginas': paginator.num_pages
+    })
+
 def obtener_miembros_paginados(request, titular_id):
     beneficiarios = list(Beneficiario.objects.filter(titular_id=titular_id).values('id', 'nombre_completo', 'cedula', 'parentesco', 'edad_afiliacion', 'fecha_afiliacion'))
     mascotas = list(Mascota.objects.filter(titular_id=titular_id).values('id', 'nombre', 'especie', 'fecha_afiliacion'))
@@ -198,6 +226,26 @@ def obtener_contrato(request, titular_id):
     }
 
     return JsonResponse({'contenido': context})
+
+
+def titular_edit(request, titular_id):
+    titular = get_object_or_404(Titular, id=titular_id)
+
+    if request.method == "POST":
+        form = TitularForm(request.POST, instance=titular)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Se actualizó el usuario correctamente')
+            return JsonResponse({
+                'status': 'success', 
+                'redirect_url': reverse('titular_list')
+            })
+        else:
+            return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
+
+    return JsonResponse({
+        'titular': model_to_dict(titular)
+    })
 
 
 """

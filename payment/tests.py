@@ -4,8 +4,12 @@ from decimal import Decimal
 from django.test import TestCase
 
 from client.models import Titular
-from payment.models import Pago
-from payment.services import generar_factura_para_pago, obtener_siguiente_periodo_pago
+from payment.models import Pago, Reporte
+from payment.services import (
+    generar_factura_para_pago,
+    obtener_datos_reporte_pdf,
+    obtener_siguiente_periodo_pago,
+)
 
 
 class FacturaServiceTests(TestCase):
@@ -48,3 +52,34 @@ class FacturaServiceTests(TestCase):
         self.assertEqual(segunda_factura.periodo_nombre, 'Junio 2026')
         self.assertEqual(segunda_factura.monto_cargos_unicos, Decimal('0.00'))
         self.assertEqual(segunda_factura.monto_total, Decimal('24000.00'))
+
+
+class ReportePdfServiceTests(TestCase):
+    def test_obtener_datos_reporte_pdf_separa_por_periodo(self):
+        Reporte.objects.create(
+            fecha_generacion=date(2026, 8, 10),
+            valor_total_recaudado=Decimal('15000.00'),
+            diario=True,
+        )
+        Reporte.objects.create(
+            fecha_generacion=date(2026, 8, 11),
+            valor_total_recaudado=Decimal('20000.00'),
+            semanal=True,
+        )
+        Reporte.objects.create(
+            fecha_generacion=date(2026, 8, 1),
+            valor_total_recaudado=Decimal('50000.00'),
+            mensual=True,
+        )
+
+        datos = obtener_datos_reporte_pdf()
+
+        self.assertIn('diario', datos)
+        self.assertIn('semanal', datos)
+        self.assertIn('mensual', datos)
+        self.assertEqual(len(datos['diario']), 1)
+        self.assertEqual(len(datos['semanal']), 1)
+        self.assertEqual(len(datos['mensual']), 1)
+        self.assertEqual(datos['diario'][0]['monto'], Decimal('15000.00'))
+        self.assertEqual(datos['semanal'][0]['monto'], Decimal('20000.00'))
+        self.assertEqual(datos['mensual'][0]['monto'], Decimal('50000.00'))

@@ -6,7 +6,7 @@ from django.db.models import Count, Q, Sum
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from .models import Factura, Pago, Plan, Reporte
-from .services import generar_factura_para_pago, esta_vencido, generar_reporte
+from .services import generar_factura_para_pago, esta_vencido, generar_reporte, generar_pdf_reporte_completo
 from client.models import Mascota, Beneficiario
 from django.http import JsonResponse
 

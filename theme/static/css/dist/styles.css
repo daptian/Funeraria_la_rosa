@@ -783,6 +783,64 @@ input:where([type='file']):focus {
   }
 }
 
+.form-input,.form-textarea,.form-select,.form-multiselect {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: #fff;
+  border-color: #6b7280;
+  border-width: 1px;
+  border-radius: 0px;
+  padding-top: 0.5rem;
+  padding-right: 0.75rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  --tw-shadow: 0 0 #0000;
+}
+
+.form-input:focus, .form-textarea:focus, .form-select:focus, .form-multiselect:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #2563eb;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  border-color: #2563eb;
+}
+
+.form-input::-moz-placeholder, .form-textarea::-moz-placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
+
+.form-input::placeholder,.form-textarea::placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
+
+.form-input::-webkit-datetime-edit-fields-wrapper {
+  padding: 0;
+}
+
+.form-input::-webkit-date-and-time-value {
+  min-height: 1.5em;
+  text-align: inherit;
+}
+
+.form-input::-webkit-datetime-edit {
+  display: inline-flex;
+}
+
+.form-input::-webkit-datetime-edit,.form-input::-webkit-datetime-edit-year-field,.form-input::-webkit-datetime-edit-month-field,.form-input::-webkit-datetime-edit-day-field,.form-input::-webkit-datetime-edit-hour-field,.form-input::-webkit-datetime-edit-minute-field,.form-input::-webkit-datetime-edit-second-field,.form-input::-webkit-datetime-edit-millisecond-field,.form-input::-webkit-datetime-edit-meridiem-field {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -797,6 +855,10 @@ input:where([type='file']):focus {
 
 .visible {
   visibility: visible;
+}
+
+.invisible {
+  visibility: hidden;
 }
 
 .collapse {
@@ -823,12 +885,28 @@ input:where([type='file']):focus {
   position: sticky;
 }
 
+.end-1 {
+  inset-inline-end: 0.25rem;
+}
+
+.left-1\/2 {
+  left: 50%;
+}
+
+.start-1 {
+  inset-inline-start: 0.25rem;
+}
+
 .top-0 {
   top: 0px;
 }
 
-.top-5 {
-  top: 1.25rem;
+.top-1\/4 {
+  top: 25%;
+}
+
+.isolate {
+  isolation: isolate;
 }
 
 .col-span-1 {
@@ -849,6 +927,26 @@ input:where([type='file']):focus {
 
 .m-1 {
   margin: 0.25rem;
+}
+
+.m-10 {
+  margin: 2.5rem;
+}
+
+.m-2 {
+  margin: 0.5rem;
+}
+
+.m-4 {
+  margin: 1rem;
+}
+
+.m-9 {
+  margin: 2.25rem;
+}
+
+.m-3 {
+  margin: 0.75rem;
 }
 
 .mx-auto {
@@ -900,10 +998,6 @@ input:where([type='file']):focus {
   margin-top: 0.25rem;
 }
 
-.mt-1\.5 {
-  margin-top: 0.375rem;
-}
-
 .mt-10 {
   margin-top: 2.5rem;
 }
@@ -928,12 +1022,20 @@ input:where([type='file']):focus {
   margin-top: 2rem;
 }
 
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
 .block {
   display: block;
 }
 
 .inline-block {
   display: inline-block;
+}
+
+.inline {
+  display: inline;
 }
 
 .flex {
@@ -948,12 +1050,52 @@ input:where([type='file']):focus {
   display: table;
 }
 
+.inline-table {
+  display: inline-table;
+}
+
+.table-caption {
+  display: table-caption;
+}
+
+.table-cell {
+  display: table-cell;
+}
+
+.table-column {
+  display: table-column;
+}
+
+.table-column-group {
+  display: table-column-group;
+}
+
+.table-footer-group {
+  display: table-footer-group;
+}
+
+.table-header-group {
+  display: table-header-group;
+}
+
+.table-row-group {
+  display: table-row-group;
+}
+
+.table-row {
+  display: table-row;
+}
+
 .grid {
   display: grid;
 }
 
 .contents {
   display: contents;
+}
+
+.list-item {
+  display: list-item;
 }
 
 .hidden {
@@ -965,8 +1107,8 @@ input:where([type='file']):focus {
   height: 1.5rem;
 }
 
-.h-1\.5 {
-  height: 0.375rem;
+.h-1 {
+  height: 0.25rem;
 }
 
 .h-10 {
@@ -1001,36 +1143,16 @@ input:where([type='file']):focus {
   height: 83.333333%;
 }
 
+.h-6 {
+  height: 1.5rem;
+}
+
 .h-7 {
   height: 1.75rem;
 }
 
-.h-\[100px\] {
-  height: 100px;
-}
-
-.h-\[35\%\] {
-  height: 35%;
-}
-
-.h-\[42\%\] {
-  height: 42%;
-}
-
-.h-\[50\%\] {
-  height: 50%;
-}
-
-.h-\[55\%\] {
-  height: 55%;
-}
-
-.h-\[68\%\] {
-  height: 68%;
-}
-
-.h-\[90\%\] {
-  height: 90%;
+.h-9 {
+  height: 2.25rem;
 }
 
 .h-\[calc\(100\%-48px\)\] {
@@ -1039,6 +1161,10 @@ input:where([type='file']):focus {
 
 .h-\[calc\(100\%-76px\)\] {
   height: calc(100% - 76px);
+}
+
+.h-full {
+  height: 100%;
 }
 
 .h-max {
@@ -1050,12 +1176,13 @@ input:where([type='file']):focus {
   height: 100vh;
 }
 
-.h-40 {
-  height: 10rem;
+.h-0 {
+  height: 0px;
 }
 
-.min-h-1 {
-  min-height: 0.25rem;
+.h-min {
+  height: -moz-min-content;
+  height: min-content;
 }
 
 .min-h-screen {
@@ -1066,8 +1193,8 @@ input:where([type='file']):focus {
   width: 0.125rem;
 }
 
-.w-1\.5 {
-  width: 0.375rem;
+.w-1\/2 {
+  width: 50%;
 }
 
 .w-10 {
@@ -1080,10 +1207,6 @@ input:where([type='file']):focus {
 
 .w-16 {
   width: 4rem;
-}
-
-.w-3 {
-  width: 0.75rem;
 }
 
 .w-3\.5 {
@@ -1106,6 +1229,10 @@ input:where([type='file']):focus {
   width: 14rem;
 }
 
+.w-6 {
+  width: 1.5rem;
+}
+
 .w-6\/12 {
   width: 50%;
 }
@@ -1122,10 +1249,6 @@ input:where([type='file']):focus {
   width: 75%;
 }
 
-.w-\[100px\] {
-  width: 100px;
-}
-
 .w-full {
   width: 100%;
 }
@@ -1135,9 +1258,8 @@ input:where([type='file']):focus {
   width: max-content;
 }
 
-.w-min {
-  width: -moz-min-content;
-  width: min-content;
+.w-0 {
+  width: 0px;
 }
 
 .max-w-2xl {
@@ -1160,12 +1282,24 @@ input:where([type='file']):focus {
   flex: 1 1 0%;
 }
 
-.flex-shrink-0 {
-  flex-shrink: 0;
+.flex-shrink {
+  flex-shrink: 1;
+}
+
+.shrink {
+  flex-shrink: 1;
 }
 
 .shrink-0 {
   flex-shrink: 0;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.grow {
+  flex-grow: 1;
 }
 
 .table-auto {
@@ -1180,6 +1314,22 @@ input:where([type='file']):focus {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+@keyframes fadeOutUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-25px);
+    opacity: 0;
+  }
+}
+
+.animate-fadeOutUp {
+  animation: fadeOutUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
 .cursor-default {
   cursor: default;
 }
@@ -1188,8 +1338,18 @@ input:where([type='file']):focus {
   cursor: pointer;
 }
 
+.resize {
+  resize: both;
+}
+
 .list-disc {
   list-style-type: disc;
+}
+
+.appearance-none {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
 }
 
 .grid-cols-1 {
@@ -1204,12 +1364,8 @@ input:where([type='file']):focus {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.grid-cols-4 {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.grid-cols-\[2fr_1fr\] {
-  grid-template-columns: 2fr 1fr;
+.flex-row {
+  flex-direction: row;
 }
 
 .flex-col {
@@ -1248,10 +1404,6 @@ input:where([type='file']):focus {
   justify-content: space-between;
 }
 
-.gap-0\.5 {
-  gap: 0.125rem;
-}
-
 .gap-1 {
   gap: 0.25rem;
 }
@@ -1274,15 +1426,6 @@ input:where([type='file']):focus {
 
 .gap-4 {
   gap: 1rem;
-}
-
-.gap-x-6 {
-  -moz-column-gap: 1.5rem;
-       column-gap: 1.5rem;
-}
-
-.gap-y-0 {
-  row-gap: 0px;
 }
 
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
@@ -1308,6 +1451,10 @@ input:where([type='file']):focus {
   border-color: rgb(240 236 228 / var(--tw-divide-opacity, 1));
 }
 
+.self-center {
+  align-self: center;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1320,8 +1467,18 @@ input:where([type='file']):focus {
   overflow-y: auto;
 }
 
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .whitespace-nowrap {
   white-space: nowrap;
+}
+
+.text-wrap {
+  text-wrap: wrap;
 }
 
 .rounded {
@@ -1356,11 +1513,6 @@ input:where([type='file']):focus {
   border-radius: 0.75rem;
 }
 
-.rounded-t-\[3px\] {
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-}
-
 .rounded-t-lg {
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
@@ -1368,6 +1520,15 @@ input:where([type='file']):focus {
 
 .border {
   border-width: 1px;
+}
+
+.border-\[0\.5px\] {
+  border-width: 0.5px;
+}
+
+.border-x-0 {
+  border-left-width: 0px;
+  border-right-width: 0px;
 }
 
 .border-b {
@@ -1380,6 +1541,10 @@ input:where([type='file']):focus {
 
 .border-t {
   border-top-width: 1px;
+}
+
+.border-t-0 {
+  border-top-width: 0px;
 }
 
 .border-none {
@@ -1438,31 +1603,63 @@ input:where([type='file']):focus {
   border-color: rgb(240 236 228 / var(--tw-border-opacity, 1));
 }
 
+.border-gray-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+
+.border-gray-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
+}
+
+.border-gray-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity, 1));
+}
+
 .border-red-400 {
   --tw-border-opacity: 1;
   border-color: rgb(248 113 113 / var(--tw-border-opacity, 1));
+}
+
+.border-red-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
 }
 
 .border-transparent {
   border-color: transparent;
 }
 
-.bg-\[\#0a1a3a\]\/10 {
-  background-color: rgb(10 26 58 / 0.1);
+.border-\[\#c1a983\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(193 169 131 / var(--tw-border-opacity, 1));
 }
 
-.bg-\[\#0a3a1a\]\/10 {
-  background-color: rgb(10 58 26 / 0.1);
+.border-\[\#27221b\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(39 34 27 / var(--tw-border-opacity, 1));
 }
 
-.bg-\[\#148a10\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(20 138 16 / var(--tw-bg-opacity, 1));
+.border-\[\#5b4f3e\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(91 79 62 / var(--tw-border-opacity, 1));
 }
 
 .bg-\[\#1C1410\] {
   --tw-bg-opacity: 1;
   background-color: rgb(28 20 16 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[\#1d1411\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 20 17 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[\#362a1e\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(54 42 30 / var(--tw-bg-opacity, 1));
 }
 
 .bg-\[\#3a1a0a\]\/10 {
@@ -1487,27 +1684,23 @@ input:where([type='file']):focus {
   background-color: rgb(212 185 106 / 0.1);
 }
 
-.bg-\[\#D4B96A\]\/25 {
-  background-color: rgb(212 185 106 / 0.25);
-}
-
 .bg-\[\#F7F4EE\] {
   --tw-bg-opacity: 1;
   background-color: rgb(247 244 238 / var(--tw-bg-opacity, 1));
 }
 
-.bg-\[\#fef3c7\] {
+.bg-black {
   --tw-bg-opacity: 1;
-  background-color: rgb(254 243 199 / var(--tw-bg-opacity, 1));
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
 }
 
 .bg-black\/20 {
   background-color: rgb(0 0 0 / 0.2);
 }
 
-.bg-blue-400 {
+.bg-gray-200 {
   --tw-bg-opacity: 1;
-  background-color: rgb(96 165 250 / var(--tw-bg-opacity, 1));
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
 }
 
 .bg-gray-400 {
@@ -1530,14 +1723,42 @@ input:where([type='file']):focus {
   background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
 }
 
-.bg-red-400 {
+.bg-red-200 {
   --tw-bg-opacity: 1;
-  background-color: rgb(248 113 113 / var(--tw-bg-opacity, 1));
+  background-color: rgb(254 202 202 / var(--tw-bg-opacity, 1));
+}
+
+.bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
+}
+
+.bg-transparent {
+  background-color: transparent;
 }
 
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+.bg-red-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
+}
+
+.bg-red-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 113 113 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[\#5b4f3e\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(91 79 62 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[url\(\'data\:image\/svg\+xml\2c \%3Csvg_xmlns\=\%22http\:\/\/www\.w3\.org\/2000\/svg\%22_fill\=\%22none\%22_viewBox\=\%220_0_24_24\%22_stroke\=\%22\%23D4B96A\%22\%3E\%3Cpath_stroke-linecap\=\%22round\%22_stroke-linejoin\=\%22round\%22_stroke-width\=\%222\%22_d\=\%22M19_9l-7_7-7-7\%22\%3E\%3C\/path\%3E\%3C\/svg\%3E\'\)\] {
+  background-image: url('data:image/svg+xml,%3Csvg_xmlns=%22http://www.w3.org/2000/svg%22_fill=%22none%22_viewBox=%220_0_24_24%22_stroke=%22%23D4B96A%22%3E%3Cpath_stroke-linecap=%22round%22_stroke-linejoin=%22round%22_stroke-width=%222%22_d=%22M19_9l-7_7-7-7%22%3E%3C/path%3E%3C/svg%3E');
 }
 
 .bg-gradient-to-br {
@@ -1546,6 +1767,10 @@ input:where([type='file']):focus {
 
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+.bg-none {
+  background-image: none;
 }
 
 .from-\[\#D4B96A\] {
@@ -1568,12 +1793,36 @@ input:where([type='file']):focus {
   --tw-gradient-to: #c4a95a var(--tw-gradient-to-position);
 }
 
+.bg-\[length\:14px\] {
+  background-size: 14px;
+}
+
+.bg-\[right_10px_center\] {
+  background-position: right 10px center;
+}
+
+.bg-no-repeat {
+  background-repeat: no-repeat;
+}
+
+.fill-white {
+  fill: #fff;
+}
+
 .p-0 {
   padding: 0px;
 }
 
+.p-1 {
+  padding: 0.25rem;
+}
+
 .p-1\.5 {
   padding: 0.375rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
 }
 
 .p-2\.5 {
@@ -1596,12 +1845,12 @@ input:where([type='file']):focus {
   padding: 2rem;
 }
 
-.p-1 {
-  padding: 0.25rem;
+.p-9 {
+  padding: 2.25rem;
 }
 
-.p-2 {
-  padding: 0.5rem;
+.p-5 {
+  padding: 1.25rem;
 }
 
 .px-2 {
@@ -1694,6 +1943,11 @@ input:where([type='file']):focus {
   padding-bottom: 2rem;
 }
 
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
 .pb-10 {
   padding-bottom: 2.5rem;
 }
@@ -1714,6 +1968,10 @@ input:where([type='file']):focus {
   padding-bottom: 2rem;
 }
 
+.pe-7 {
+  padding-inline-end: 1.75rem;
+}
+
 .pl-4 {
   padding-left: 1rem;
 }
@@ -1728,6 +1986,10 @@ input:where([type='file']):focus {
 
 .pr-4 {
   padding-right: 1rem;
+}
+
+.pr-8 {
+  padding-right: 2rem;
 }
 
 .pt-5 {
@@ -1750,6 +2012,10 @@ input:where([type='file']):focus {
   text-align: right;
 }
 
+.text-justify {
+  text-align: justify;
+}
+
 .align-middle {
   vertical-align: middle;
 }
@@ -1758,8 +2024,8 @@ input:where([type='file']):focus {
   font-family: 'Inter',sans-serif;
 }
 
-.font-mono {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+.font-sans {
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .font-serif {
@@ -1850,6 +2116,23 @@ input:where([type='file']):focus {
   text-transform: uppercase;
 }
 
+.lowercase {
+  text-transform: lowercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.ordinal {
+  --tw-ordinal: ordinal;
+  font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
+}
+
 .leading-none {
   line-height: 1;
 }
@@ -1898,24 +2181,14 @@ input:where([type='file']):focus {
   letter-spacing: 0.1em;
 }
 
-.text-\[\#0c9513\] {
-  --tw-text-opacity: 1;
-  color: rgb(12 149 19 / var(--tw-text-opacity, 1));
-}
-
 .text-\[\#1C1410\] {
   --tw-text-opacity: 1;
   color: rgb(28 20 16 / var(--tw-text-opacity, 1));
 }
 
-.text-\[\#1a3a6a\] {
+.text-\[\#22211f\] {
   --tw-text-opacity: 1;
-  color: rgb(26 58 106 / var(--tw-text-opacity, 1));
-}
-
-.text-\[\#1a6a3a\] {
-  --tw-text-opacity: 1;
-  color: rgb(26 106 58 / var(--tw-text-opacity, 1));
+  color: rgb(34 33 31 / var(--tw-text-opacity, 1));
 }
 
 .text-\[\#2C1F0E\] {
@@ -1957,11 +2230,6 @@ input:where([type='file']):focus {
   color: rgb(106 42 16 / var(--tw-text-opacity, 1));
 }
 
-.text-\[\#7a5a10\] {
-  --tw-text-opacity: 1;
-  color: rgb(122 90 16 / var(--tw-text-opacity, 1));
-}
-
 .text-\[\#7a6a52\] {
   --tw-text-opacity: 1;
   color: rgb(122 106 82 / var(--tw-text-opacity, 1));
@@ -1977,20 +2245,6 @@ input:where([type='file']):focus {
   color: rgb(138 42 16 / var(--tw-text-opacity, 1));
 }
 
-.text-\[\#8a2a\2081\2080\] {
-  color: #8a2a₁₀;
-}
-
-.text-\[\#8a6a10\] {
-  --tw-text-opacity: 1;
-  color: rgb(138 106 16 / var(--tw-text-opacity, 1));
-}
-
-.text-\[\#92400e\] {
-  --tw-text-opacity: 1;
-  color: rgb(146 64 14 / var(--tw-text-opacity, 1));
-}
-
 .text-\[\#9a8a70\] {
   --tw-text-opacity: 1;
   color: rgb(154 138 112 / var(--tw-text-opacity, 1));
@@ -2004,6 +2258,16 @@ input:where([type='file']):focus {
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+}
+
+.text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+}
+
+.text-gray-900 {
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
 }
 
 .text-green-500 {
@@ -2031,9 +2295,35 @@ input:where([type='file']):focus {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
-.text-\[\#2c2719\] {
+.text-\[\#c1a983\] {
   --tw-text-opacity: 1;
-  color: rgb(44 39 25 / var(--tw-text-opacity, 1));
+  color: rgb(193 169 131 / var(--tw-text-opacity, 1));
+}
+
+.text-\[\#71624a\] {
+  --tw-text-opacity: 1;
+  color: rgb(113 98 74 / var(--tw-text-opacity, 1));
+}
+
+.text-\[\#978465\] {
+  --tw-text-opacity: 1;
+  color: rgb(151 132 101 / var(--tw-text-opacity, 1));
+}
+
+.text-\[\#\#c1a983\] {
+  color: ##c1a983;
+}
+
+.underline {
+  text-decoration-line: underline;
+}
+
+.overline {
+  text-decoration-line: overline;
+}
+
+.line-through {
+  text-decoration-line: line-through;
 }
 
 .no-underline {
@@ -2083,6 +2373,37 @@ input:where([type='file']):focus {
   outline-style: solid;
 }
 
+.ring {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.blur {
+  --tw-blur: blur(8px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.drop-shadow {
+  --tw-drop-shadow: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.grayscale {
+  --tw-grayscale: grayscale(100%);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.invert {
+  --tw-invert: invert(100%);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.sepia {
+  --tw-sepia: sepia(100%);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
@@ -2121,8 +2442,882 @@ input:where([type='file']):focus {
   transition-duration: 200ms;
 }
 
+.ease-in {
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
 .ease-in-out {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ease-out {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.\[-4\:-2\] {
+  -4: -2;
+}
+
+.\[-6\:-4\] {
+  -6: -4;
+}
+
+.\[-7\:-1\] {
+  -7: -1;
+}
+
+.\[-8\:-2\] {
+  -8: -2;
+}
+
+.\[-8\:-4\] {
+  -8: -4;
+}
+
+.\[-\:\|\\s\] {
+  -: |\s;
+}
+
+.\[-\:\|\] {
+  -: |;
+}
+
+.\[_\:\.\] {
+  _: .;
+}
+
+.\[a-zA-Z0-9\:\.\] {
+  a-z-a--z0-9: .;
+}
+
+.\[a\:b\] {
+  a: b;
+}
+
+.\[aftercursor\:aftercursor\+1\] {
+  aftercursor: aftercursor+1;
+}
+
+.\[aftercursor\:closeparenlocation\] {
+  aftercursor: closeparenlocation;
+}
+
+.\[afterequal\:afterquote\] {
+  afterequal: afterquote;
+}
+
+.\[afterquote\:endquotelocation\] {
+  afterquote: endquotelocation;
+}
+
+.\[ai\:ai\+size\] {
+  ai: ai+size;
+}
+
+.\[alo\:ahi\] {
+  alo: ahi;
+}
+
+.\[alo\:i\] {
+  alo: i;
+}
+
+.\[b\:e\] {
+  b: e;
+}
+
+.\[b\:l\] {
+  b: l;
+}
+
+.\[beforetag\:end\] {
+  beforetag: end;
+}
+
+.\[beforetag\:foundtag-1\] {
+  beforetag: foundtag-1;
+}
+
+.\[begin\:end\] {
+  begin: end;
+}
+
+.\[bj\:bj\+size\] {
+  bj: bj+size;
+}
+
+.\[blo\:bhi\] {
+  blo: bhi;
+}
+
+.\[blo\:j\] {
+  blo: j;
+}
+
+.\[bottom\:top\] {
+  bottom: top;
+}
+
+.\[c\:c\+20\] {
+  c: c+20;
+}
+
+.\[col-2\:col\+3\] {
+  col-2: col+3;
+}
+
+.\[cols_start\:cols_end\] {
+  cols_start: cols end;
+}
+
+.\[cursor\:aftercursor\] {
+  cursor: aftercursor;
+}
+
+.\[cursor\:closeparenlocation\] {
+  cursor: closeparenlocation;
+}
+
+.\[cursor\:cursor\+10\] {
+  cursor: cursor+10;
+}
+
+.\[cursor\:cursor\+1\] {
+  cursor: cursor+1;
+}
+
+.\[cursor\:cursor\+20\] {
+  cursor: cursor+20;
+}
+
+.\[cursor\:endofline\] {
+  cursor: endofline;
+}
+
+.\[cursor\:nextnewline\] {
+  cursor: nextnewline;
+}
+
+.\[cursor\:nextopenbracket\] {
+  cursor: nextopenbracket;
+}
+
+.\[cursorcount\:cursorcount\+20\] {
+  cursorcount: cursorcount+20;
+}
+
+.\[data2_delim1_start\:data2_delim2_start\] {
+  data2_delim1_start: data2 delim2 start;
+}
+
+.\[end-1\:end\] {
+  end-1: end;
+}
+
+.\[end\:end\+1\] {
+  end: end+1;
+}
+
+.\[end\:end\+20\] {
+  end: end+20;
+}
+
+.\[end\:next\] {
+  end: next;
+}
+
+.\[f\:l\] {
+  f: l;
+}
+
+.\[first\:last\] {
+  first: last;
+}
+
+.\[first_element_idx\:last_element_idx\+1\] {
+  first_element_idx: last element idx+1;
+}
+
+.\[firstbracket\:firstbracket\+20\] {
+  firstbracket: firstbracket+20;
+}
+
+.\[firstbracket\:firstbracket\+2\] {
+  firstbracket: firstbracket+2;
+}
+
+.\[firstbracket\:firstbracket\+4\] {
+  firstbracket: firstbracket+4;
+}
+
+.\[firstbracket\:firstbracket\+9\] {
+  firstbracket: firstbracket+9;
+}
+
+.\[firstmark-1\:firstmark\] {
+  firstmark-1: firstmark;
+}
+
+.\[foundtag\:cursor\] {
+  foundtag: cursor;
+}
+
+.\[generation_start\:generation_end\] {
+  generation_start: generation end;
+}
+
+.\[glyphPos\:glyphPos\+glyphLen\] {
+  glyph-pos: glyphPos+glyphLen;
+}
+
+.\[here\:start\] {
+  here: start;
+}
+
+.\[hi\:n\] {
+  hi: n;
+}
+
+.\[i0\:il\] {
+  i0: il;
+}
+
+.\[i1\:i1\] {
+  i1: i1;
+}
+
+.\[i1\:i2\] {
+  i1: i2;
+}
+
+.\[i\:ai\] {
+  i: ai;
+}
+
+.\[i\:endpos\] {
+  i: endpos;
+}
+
+.\[i\:i\+2\] {
+  i: i+2;
+}
+
+.\[i\:i\+3\] {
+  i: i+3;
+}
+
+.\[i\:i\+8\] {
+  i: i+8;
+}
+
+.\[i\:i\+chunkSize\] {
+  i: i+chunkSize;
+}
+
+.\[i\:i\+k\] {
+  i: i+k;
+}
+
+.\[i\:i\+n\] {
+  i: i+n;
+}
+
+.\[i\:i\+self\.row_regions\] {
+  i: i+self.row regions;
+}
+
+.\[i\:i\] {
+  i: i;
+}
+
+.\[i\:j\] {
+  i: j;
+}
+
+.\[index-2\:index\] {
+  index-2: index;
+}
+
+.\[index1\:index2\] {
+  index1: index2;
+}
+
+.\[index\:end\] {
+  index: end;
+}
+
+.\[index\:index\+1\] {
+  index: index+1;
+}
+
+.\[index\:index\+20\] {
+  index: index+20;
+}
+
+.\[index\:index\] {
+  index: index;
+}
+
+.\[index_after_trailer\:index_after_trailer\+2\] {
+  index_after_trailer: index after trailer+2;
+}
+
+.\[indicator_start\:indicator_end\] {
+  indicator_start: indicator end;
+}
+
+.\[inherit_ndx\:inherit_ndx\+1\] {
+  inherit_ndx: inherit ndx+1;
+}
+
+.\[insertPos\:insertPos\] {
+  insert-pos: insertPos;
+}
+
+.\[ix\:i0\] {
+  ix: i0;
+}
+
+.\[j-6\:j\] {
+  j-6: j;
+}
+
+.\[j0\:jl\] {
+  j0: jl;
+}
+
+.\[j1\:j2\] {
+  j1: j2;
+}
+
+.\[j\:bj\] {
+  j: bj;
+}
+
+.\[j\:chunk_end\] {
+  j: chunk end;
+}
+
+.\[j\:i\] {
+  j: i;
+}
+
+.\[j\:j\+10\] {
+  j: j+10;
+}
+
+.\[j\:j\+bpp\] {
+  j: j+bpp;
+}
+
+.\[j\:j\+k\] {
+  j: j+k;
+}
+
+.\[j\:j\+n\] {
+  j: j+n;
+}
+
+.\[j\:j\+patternlen\] {
+  j: j+patternlen;
+}
+
+.\[k\:endpos\] {
+  k: endpos;
+}
+
+.\[labelStart\:labelEnd\] {
+  label-start: labelEnd;
+}
+
+.\[last\:pos\] {
+  last: pos;
+}
+
+.\[last\:start\] {
+  last: start;
+}
+
+.\[lastPos\:pos\] {
+  last-pos: pos;
+}
+
+.\[laststartpoint\:endofline\] {
+  laststartpoint: endofline;
+}
+
+.\[left\:right\] {
+  left: right;
+}
+
+.\[lineStartPos\:i\] {
+  line-start-pos: i;
+}
+
+.\[line_offset\:end_line\] {
+  line_offset: end line;
+}
+
+.\[line_offset\:start\] {
+  line_offset: start;
+}
+
+.\[ll-ls\:ll\] {
+  ll-ls: ll;
+}
+
+.\[lower_bound\:lineno\] {
+  lower_bound: lineno;
+}
+
+.\[lpos_start\:lpos_end\] {
+  lpos_start: lpos end;
+}
+
+.\[mem\:pos\] {
+  mem: pos;
+}
+
+.\[model_fields_start\:model_fields_end\] {
+  model_fields_start: model fields end;
+}
+
+.\[month-1\:month\+1\] {
+  month-1: month+1;
+}
+
+.\[newPos\:newPos\] {
+  new-pos: newPos;
+}
+
+.\[nextopenbracket\:nextopenbracket\+20\] {
+  nextopenbracket: nextopenbracket+20;
+}
+
+.\[nmw\:nmw\+1\] {
+  nmw: nmw+1;
+}
+
+.\[o-rowb\:o\] {
+  o-rowb: o;
+}
+
+.\[object_start\:object_end\] {
+  object_start: object end;
+}
+
+.\[offset\:next_offset\] {
+  offset: next offset;
+}
+
+.\[offset\:offset\+3\] {
+  offset: offset+3;
+}
+
+.\[offset\:offset\+dcCount\] {
+  offset: offset+dcCount;
+}
+
+.\[offset\:offset\+sec_size\] {
+  offset: offset+sec size;
+}
+
+.\[ofs\:ofs\+4\] {
+  ofs: ofs+4;
+}
+
+.\[ofs\:ofs\+nb\] {
+  ofs: ofs+nb;
+}
+
+.\[oldpos\:oldpos\+stride\] {
+  oldpos: oldpos+stride;
+}
+
+.\[operator_start\:operator_end\] {
+  operator_start: operator end;
+}
+
+.\[p\:p\+1\] {
+  p: p+1;
+}
+
+.\[p\:p\+ls\] {
+  p: p+ls;
+}
+
+.\[past\:past\+le\] {
+  past: past+le;
+}
+
+.\[pastfirstbracket\:closebracket\] {
+  pastfirstbracket: closebracket;
+}
+
+.\[pos0\:pos1\] {
+  pos0: pos1;
+}
+
+.\[pos\:data_len\] {
+  pos: data len;
+}
+
+.\[pos\:end\] {
+  pos: end;
+}
+
+.\[pos\:end_pos\] {
+  pos: end pos;
+}
+
+.\[pos\:endsub\] {
+  pos: endsub;
+}
+
+.\[pos\:i\] {
+  pos: i;
+}
+
+.\[pos\:matchStart\] {
+  pos: matchStart;
+}
+
+.\[pos\:maximum\] {
+  pos: maximum;
+}
+
+.\[pos\:nc\] {
+  pos: nc;
+}
+
+.\[pos\:new_pos\] {
+  pos: new pos;
+}
+
+.\[pos\:newpos\] {
+  pos: newpos;
+}
+
+.\[pos\:pc\] {
+  pos: pc;
+}
+
+.\[pos\:pos\+118\] {
+  pos: pos+118;
+}
+
+.\[pos\:pos\+128\] {
+  pos: pos+128;
+}
+
+.\[pos\:pos\+1\] {
+  pos: pos+1;
+}
+
+.\[pos\:pos\+2\*charsavail\] {
+  pos: pos+2*charsavail;
+}
+
+.\[pos\:pos\+2\*nchars\] {
+  pos: pos+2*nchars;
+}
+
+.\[pos\:pos\+2\] {
+  pos: pos+2;
+}
+
+.\[pos\:pos\+3\] {
+  pos: pos+3;
+}
+
+.\[pos\:pos\+40\] {
+  pos: pos+40;
+}
+
+.\[pos\:pos\+4\] {
+  pos: pos+4;
+}
+
+.\[pos\:pos\+6\] {
+  pos: pos+6;
+}
+
+.\[pos\:pos\+8\] {
+  pos: pos+8;
+}
+
+.\[pos\:pos\+addr_size\] {
+  pos: pos+addr size;
+}
+
+.\[pos\:pos\+charsavail\] {
+  pos: pos+charsavail;
+}
+
+.\[pos\:pos\+columns\] {
+  pos: pos+columns;
+}
+
+.\[pos\:pos\+length\] {
+  pos: pos+length;
+}
+
+.\[pos\:pos\+lenlen\] {
+  pos: pos+lenlen;
+}
+
+.\[pos\:pos\+nameLen\] {
+  pos: pos+nameLen;
+}
+
+.\[pos\:pos\+nchars\] {
+  pos: pos+nchars;
+}
+
+.\[pos\:pos\+stride\] {
+  pos: pos+stride;
+}
+
+.\[pos\:pos\+sz1\] {
+  pos: pos+sz1;
+}
+
+.\[pos\:pos\+sz2\] {
+  pos: pos+sz2;
+}
+
+.\[pos_in_glyph\:pos_in_glyph\+2\] {
+  pos_in_glyph: pos in glyph+2;
+}
+
+.\[position\:offset\] {
+  position: offset;
+}
+
+.\[position\:start\] {
+  position: start;
+}
+
+.\[prev_end\:start\] {
+  prev_end: start;
+}
+
+.\[previous_end\:start\] {
+  previous_end: start;
+}
+
+.\[q\:q\+ls\] {
+  q: q+ls;
+}
+
+.\[r_offset\:rows\+r_offset\] {
+  r_offset: rows+r offset;
+}
+
+.\[s1\:l1\] {
+  s1: l1;
+}
+
+.\[s2\:l2\] {
+  s2: l2;
+}
+
+.\[s3\:l3\] {
+  s3: l3;
+}
+
+.\[sFW\:sFWN\] {
+  s-f-w: sFWN;
+}
+
+.\[savpos\:savpos\+8\] {
+  savpos: savpos+8;
+}
+
+.\[sc\:ec\+1\] {
+  sc: ec+1;
+}
+
+.\[sc\:ec\+2\] {
+  sc: ec+2;
+}
+
+.\[sd0\:sd1\] {
+  sd0: sd1;
+}
+
+.\[seek\:seek\+20\] {
+  seek: seek+20;
+}
+
+.\[seq_start\:pos\] {
+  seq_start: pos;
+}
+
+.\[server\:main\] {
+  server: main;
+}
+
+.\[span_sr\:n\] {
+  span_sr: n;
+}
+
+.\[sr\:er\+1\] {
+  sr: er+1;
+}
+
+.\[sr\:er\+2\] {
+  sr: er+2;
+}
+
+.\[st\:en\+le\] {
+  st: en+le;
+}
+
+.\[start-1\:start\] {
+  start-1: start;
+}
+
+.\[start\:\(end\)\] {
+  start: (end);
+}
+
+.\[start\:end\] {
+  start: end;
+}
+
+.\[start\:j\] {
+  start: j;
+}
+
+.\[start\:match\.end\(\)\] {
+  start: match.end();
+}
+
+.\[start\:pos\] {
+  start: pos;
+}
+
+.\[start\:stop\] {
+  start: stop;
+}
+
+.\[start_idx\:end_idx\] {
+  start_idx: end idx;
+}
+
+.\[start_pos\:i\] {
+  start_pos: i;
+}
+
+.\[start_pos\:pos\] {
+  start_pos: pos;
+}
+
+.\[start_pos\:start_pos\+grab\] {
+  start_pos: start pos+grab;
+}
+
+.\[start_pos\:start_pos\+sec_size\] {
+  start_pos: start pos+sec size;
+}
+
+.\[startpos\:i\+1\] {
+  startpos: i+1;
+}
+
+.\[tagattributesstringcursor\:equallocation\] {
+  tagattributesstringcursor: equallocation;
+}
+
+.\[taglinestart\:cursor\] {
+  taglinestart: cursor;
+}
+
+.\[token_start_pos\:pos\] {
+  token_start_pos: pos;
+}
+
+.\[top\:bottom\] {
+  top: bottom;
+}
+
+.\[trail_start\:middle_semicolon_index\] {
+  trail_start: middle semicolon index;
+}
+
+.\[transparency\:transparency\+3\] {
+  transparency: transparency+3;
+}
+
+.\[tstart\:tend\] {
+  tstart: tend;
+}
+
+.\[upto\:next\] {
+  upto: next;
+}
+
+.\[upto\:start\] {
+  upto: start;
+}
+
+.\[user\:passwd\@\] {
+  user: passwd@;
+}
+
+.\[x\:x\+2\] {
+  x: x+2;
+}
+
+.placeholder\:text-gray-300::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity, 1));
+}
+
+.placeholder\:text-gray-300::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity, 1));
+}
+
+.placeholder\:text-\[\#c1a983\]::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(193 169 131 / var(--tw-text-opacity, 1));
+}
+
+.placeholder\:text-\[\#c1a983\]::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(193 169 131 / var(--tw-text-opacity, 1));
+}
+
+.placeholder\:text-\[\#a28e6d\]::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(162 142 109 / var(--tw-text-opacity, 1));
+}
+
+.placeholder\:text-\[\#a28e6d\]::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(162 142 109 / var(--tw-text-opacity, 1));
+}
+
+.placeholder\:text-white::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.placeholder\:text-white::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.placeholder\:text-red-400::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(248 113 113 / var(--tw-text-opacity, 1));
+}
+
+.placeholder\:text-red-400::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(248 113 113 / var(--tw-text-opacity, 1));
 }
 
 .last\:mb-0:last-child {
@@ -2131,6 +3326,10 @@ input:where([type='file']):focus {
 
 .last\:border-b-0:last-child {
   border-bottom-width: 0px;
+}
+
+.hover\:w-full:hover {
+  width: 100%;
 }
 
 .hover\:border:hover {
@@ -2172,11 +3371,6 @@ input:where([type='file']):focus {
   background-color: rgb(255 255 255 / 0.05);
 }
 
-.hover\:bg-\[\#D4B96A\]:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(212 185 106 / var(--tw-bg-opacity, 1));
-}
-
 .hover\:text-\[\#D4B96A\]:hover {
   --tw-text-opacity: 1;
   color: rgb(212 185 106 / var(--tw-text-opacity, 1));
@@ -2192,6 +3386,25 @@ input:where([type='file']):focus {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.focus\:w-full:focus {
+  width: 100%;
+}
+
+.focus\:border-\[\#5a2a3b\]:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(90 42 59 / var(--tw-border-opacity, 1));
+}
+
+.focus\:border-\[\#D4B96A\]:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(212 185 106 / var(--tw-border-opacity, 1));
+}
+
+.focus\:border-black:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity, 1));
+}
+
 .focus\:border-transparent:focus {
   border-color: transparent;
 }
@@ -2201,15 +3414,36 @@ input:where([type='file']):focus {
   outline-offset: 2px;
 }
 
+.focus\:ring-0:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
 .focus\:ring-2:focus {
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
+.focus\:ring-4:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(4px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.focus\:ring-\[\#5a2a3b\]:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(90 42 59 / var(--tw-ring-opacity, 1));
+}
+
 .focus\:ring-\[\#D4B96A\]:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(212 185 106 / var(--tw-ring-opacity, 1));
+}
+
+.focus\:ring-\[\#D4B96A\]\/10:focus {
+  --tw-ring-color: rgb(212 185 106 / 0.1);
 }
 
 .disabled\:cursor-not-allowed:disabled {
@@ -2270,16 +3504,8 @@ input:where([type='file']):focus {
     display: flex;
   }
 
-  .md\:grid-cols-\[2fr_1fr\] {
-    grid-template-columns: 2fr 1fr;
-  }
-
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .md\:gap-4 {
-    gap: 1rem;
   }
 }
 
@@ -2303,16 +3529,6 @@ input:where([type='file']):focus {
 
   .lg\:text-xl {
     font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
-  .lg\:text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
-  .lg\:text-lg {
-    font-size: 1.125rem;
     line-height: 1.75rem;
   }
 }

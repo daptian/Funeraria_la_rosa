@@ -1,4 +1,30 @@
-<aside class="hidden sticky top-0 h-screen md:flex w-56 flex-col justify-between " style="background: #1C1410; font-family: var(--font-sans, 'Inter', sans-serif);">
+<div id="mobile-navigation" class="sticky top-0 z-40 w-full" style="background:#1C1410; font-family:var(--font-sans, 'Inter', sans-serif);">
+    <div class="flex items-center justify-between px-4 py-3 border-b border-[#3a2e22]">
+        <div>
+            <div class="text-[9px] tracking-[0.14em] uppercase text-[#7a6a52]">Servicios Funerarios</div>
+            <div class="text-lg font-medium tracking-wide text-[#D4B96A]">La Rosa</div>
+        </div>
+        <button id="mobile-menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu"
+                class="flex h-10 w-10 items-center justify-center rounded-lg text-[#D4B96A] hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#D4B96A]"
+                aria-label="Abrir menú">
+            <svg id="mobile-menu-open-icon" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <svg id="mobile-menu-close-icon" class="hidden h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+    </div>
+    <nav id="mobile-menu" class="hidden border-b border-[#3a2e22] px-2 pb-3" aria-label="Navegación móvil">
+        <div class="px-3 pt-3 pb-1 text-[9px] uppercase tracking-[0.14em] text-[#cbbda5]">Principal</div>
+        <a href="{% url 'dashboard' %}" class="block rounded-lg px-3 py-3 text-sm text-[#cbbda5] hover:bg-white/5 hover:text-[#D4B96A]">Panel general</a>
+        <a href="{% url 'titular_list' %}" class="block rounded-lg px-3 py-3 text-sm text-[#cbbda5] hover:bg-white/5 hover:text-[#D4B96A]">Titulares</a>
+        <div class="px-3 pt-3 pb-1 text-[9px] uppercase tracking-[0.14em] text-[#5a4a35]">Gestión</div>
+        <a href="{% url 'payments' %}" class="block rounded-lg px-3 py-3 text-sm text-[#cbbda5] hover:bg-white/5 hover:text-[#D4B96A]">Pagos</a>
+        <div class="px-3 pt-3 pb-1 text-[9px] uppercase tracking-[0.14em] text-[#5a4a35]">Sistema</div>
+        <a href="{% url 'report' %}" class="block rounded-lg px-3 py-3 text-sm text-[#cbbda5] hover:bg-white/5 hover:text-[#D4B96A]">Reportes</a>
+        <a href="{% url 'config' %}" class="block rounded-lg px-3 py-3 text-sm text-[#cbbda5] hover:bg-white/5 hover:text-[#D4B96A]">Configuración</a>
+        <a href="{% url 'logout' %}" class="mt-2 block rounded-lg bg-[#D4B96A] px-3 py-3 text-center text-sm font-medium text-[#1C1410]">Cerrar sesión</a>
+    </nav>
+</div>
+
+<aside id="desktop-navigation" class="sticky top-0 h-screen w-56 shrink-0 flex-col justify-between " style="background: #1C1410; font-family: var(--font-sans, 'Inter', sans-serif);">
 
     <div>
         {% comment %} {{-- Logo --}} {% endcomment %}
@@ -20,23 +46,19 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                 Titulares
             </a>
-
+<!--
             <a href="#" class="flex items-center gap-2.5 px-5 py-2.5 text-[13px] text-[#9a8a70] no-underline border-l-2 border-transparent transition-all duration-150 hover:text-[#D4B96A] hover:bg-white/5">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                 Beneficiarios
-            </a>
+            </a> -->
 
             <div style="font-size: 9px; color: #5a4a35; letter-spacing: 0.14em; text-transform: uppercase; padding: 0 20px; margin: 16px 0 6px;">Gestión</div>
 
-            <a href="#" class="flex items-center gap-2.5 px-5 py-2.5 text-[13px] text-[#9a8a70] no-underline border-l-2 border-transparent transition-all duration-150 hover:text-[#D4B96A] hover:bg-white/5">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                Contratos
-            </a>
 
-            <a href="#" class="flex items-center gap-2.5 px-5 py-2.5 text-[13px] text-[#9a8a70] no-underline border-l-2 border-transparent transition-all duration-150 hover:text-[#D4B96A] hover:bg-white/5">
+            <!-- <a href="#" class="flex items-center gap-2.5 px-5 py-2.5 text-[13px] text-[#9a8a70] no-underline border-l-2 border-transparent transition-all duration-150 hover:text-[#D4B96A] hover:bg-white/5">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                 Servicios
-            </a>
+            </a> -->
 
             <a href="{% url 'payments' %}" class="flex items-center gap-2.5 px-5 py-2.5 text-[13px] text-[#9a8a70] no-underline border-l-2 border-transparent transition-all duration-150 hover:text-[#D4B96A] hover:bg-white/5 {% if request.resolver_match.url_name == 'payments' %}text-[#D4B96A] bg-[#D4B96A]/10 border-l-2 border-[#D4B96A]{% endif %}">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
@@ -66,4 +88,23 @@
     </div>
 
 </aside>
+
+<script>
+    (() => {
+        const button = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
+        const openIcon = document.getElementById('mobile-menu-open-icon');
+        const closeIcon = document.getElementById('mobile-menu-close-icon');
+        if (!button || !menu) return;
+
+        button.addEventListener('click', () => {
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+            button.setAttribute('aria-expanded', String(!isExpanded));
+            button.setAttribute('aria-label', isExpanded ? 'Abrir menú' : 'Cerrar menú');
+            menu.classList.toggle('hidden', isExpanded);
+            openIcon.classList.toggle('hidden', !isExpanded);
+            closeIcon.classList.toggle('hidden', isExpanded);
+        });
+    })();
+</script>
 

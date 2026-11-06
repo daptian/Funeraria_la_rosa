@@ -2,11 +2,14 @@
 {% block title %}La Rosa - Panel de Gestion{% endblock %}
 {% block content %}
 {%load static%}
-
-    <main class="flex-1 flex flex-col overflow-hidden">
-
+    <style>
+        #activity-table { min-width: 560px; }
+        @media (max-width: 480px) {
+            #activity-table { min-width: 520px; }
+        }
+    </style>
+    <main class="flex-1 min-w-0 flex flex-col overflow-hidden">
         <header class="w-full bg-[#F7F4EE] border-b border-[#D4B96A]/30 p-4 sm:p-6 shrink-0 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <!-- Branding / Logos -->
             <div class="flex flex-col">
                 <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#2C1F0E] leading-tight">
                     La Rosa
@@ -15,9 +18,6 @@
                     Servicios Funerarios
                 </p>
             </div>
-
-
-            <!-- User Info Section -->
             <div class="flex items-center pt-3sm:pt-0 sm:pl-4 sm:border-l sm:border-[#D4B96A]/50">
                 <p class="text-sm sm:text-base text-[#2C1F0E]/80 font-medium">
                     Has iniciado sesión como <span class="font-semibold text-[#2C1F0E]">{{ user.username }}</span>
@@ -25,71 +25,16 @@
             </div>
         </header>
 
-        <!-- MAIN CONTENT AREA -->
-        <div class="flex-1 overflow-y-auto padding p-6">
-            <h2 class="text-md lg:text-lg  text-[#2C1F0E] mb-5"> Centro de descarga rapida </h2>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 items-center justify-center mb-5">
-
-                <div class="bg-white hover:bg-[#D4B96A]/10 hover:underline transition-colors rounded-xl h-max border border-[#D4B96A]/15 flex items-center justify-center gap-3">
-                    <div class=" rounded-md flex items-center justify-center p-2 ">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                        </svg>
-                        <a href="#" class="text-sm text-[#2C1F0E]">
-                            <p>Descargar información Titulares</p>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="bg-white hover:bg-[#D4B96A]/10 hover:underline transition-colors rounded-xl h-max border border-[#D4B96A]/15 flex items-center justify-center gap-3">
-                    <div class=" rounded-md flex items-center justify-center p-2 ">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                        </svg>
-                        <a href="#" class="text-sm text-center text-[#2C1F0E]">
-                            <p>Descargar información de Beneficiarios</p>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="bg-white hover:bg-[#D4B96A]/10 hover:underline transition-colors rounded-xl h-max border border-[#D4B96A]/15 flex items-center justify-center gap-3">
-                    <div class=" rounded-md flex items-center justify-center p-2 ">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                        </svg>
-                        <a href="#" class="text-sm text-[#2C1F0E]">
-                            <p>Descargar información Pagos</p>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="bg-white hover:bg-[#D4B96A]/10 hover:underline transition-colors rounded-xl h-max border border-[#D4B96A]/15 flex items-center justify-center gap-3">
-                    <div class=" rounded-md flex items-center justify-center p-2 ">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                        </svg>
-                        <a href="#" class="text-sm text-[#2C1F0E]">
-                            <p>Descargar información Contratos</p>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- TWO COLUMN PANELS -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr] gap-4 mb-4">
+        <div class="flex-1 min-w-0 overflow-y-auto p-4 sm:p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr] gap-4 mb-4 ">
 
                 <!-- Left Panel: Latest Services -->
-                <div class="bg-white rounded-xl border border-[#D4B96A]/15 p-4">
-                    <div class="flex items-center justify-between mb-3.5">
-                        <div class="text-[13px] font-medium text-[#2C1F0E]">Actividad Reciente</div>
-                        <a href="#" class="text-[11px] text-[#D4B96A] no-underline">Ver todos →</a>
+                <div class="bg-white rounded-xl border border-[#D4B96A]/15 p-4 shadow-lg">
+                    <div class="flex items-center justify-between  mb-3.5">
+                        <div class="text-[13px] font-bold text-[#2C1F0E]">Actividad Reciente</div>
                     </div>
-                    <table class="w-full text-[11px] border-collapse">
+                    <div class="w-full overflow-x-auto">
+                    <table id="activity-table" class="w-full text-[11px] border-collapse">
                         <thead>
                             <tr class="border-b border-[#D4B96A]/10">
                                 <th class="text-[#9a8a70] font-medium text-left pb-2 uppercase text-[9px] tracking-[0.08em]">Fecha y hora</th>
@@ -122,13 +67,10 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                    </div>
                 </div>
-
-                <!-- Right Side Stacked Panels -->
-                <div class="flex flex-col lg:gap-4">
-
-                    <!-- Sub Panel: Chart -->
-                    <div class="bg-white rounded-xl border border-[#D4B96A]/15 p-4">
+                <div class="flex flex-col justify-center h-full lg:gap-4">
+                    <div class="bg-white  rounded-xl border border-[#D4B96A]/15 p-4 shadow-md">
                         <div class="flex items-center justify-between mb-3">
                             <div class="text-[13px] font-medium text-[#2C1F0E]">Nuevos beneficiarios por dia</div>
                         </div>
@@ -136,27 +78,6 @@
                             <canvas id="dashboardChart" ></canvas>
                         </div>
                     </div>
-
-                    <!-- Sub Panel: Quick Actions -->
-                    <div class="bg-white rounded-xl border border-[#D4B96A]/15 p-4">
-                        <div class="text-[13px] font-medium text-[#2C1F0E] mb-3">Acciones rápidas</div>
-                        
-                        <button class="flex items-center gap-2 p-2.5 bg-[#F7F4EE] rounded-md text-xs text-[#3a2e22] cursor-pointer border border-[#D4B96A]/20 mb-2 transition-all duration-150 w-full text-left last:mb-0 hover:bg-[#D4B96A]/10 hover:border-[#D4B96A]/40" onclick="">
-                            <svg class="w-4 h-4 text-[#D4B96A] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                            Publicar obituario
-                        </button>
-                        
-                        <button class="flex items-center gap-2 p-2.5 bg-[#F7F4EE] rounded-md text-xs text-[#3a2e22] cursor-pointer border border-[#D4B96A]/20 mb-2 transition-all duration-150 w-full text-left last:mb-0 hover:bg-[#D4B96A]/10 hover:border-[#D4B96A]/40" onclick="">
-                            <svg class="w-4 h-4 text-[#D4B96A] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                            Nuevo contrato
-                        </button>
-                        
-                        <button class="flex items-center gap-2 p-2.5 bg-[#F7F4EE] rounded-md text-xs text-[#3a2e22] cursor-pointer border border-[#D4B96A]/20 mb-2 transition-all duration-150 w-full text-left last:mb-0 hover:bg-[#D4B96A]/10 hover:border-[#D4B96A]/40" onclick="">
-                            <svg class="w-4 h-4 text-[#D4B96A] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            Agendar capilla
-                        </button>
-                    </div>
-
                 </div>
             </div>
 

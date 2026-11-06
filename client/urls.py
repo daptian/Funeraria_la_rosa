@@ -13,9 +13,13 @@ urlpatterns = [
     path('config/editar/<int:pk>/', views.editar_configuracion, name='editar_configuracion'),
     path('titulares/', views.titular_list, name='titular_list'),
     path('titulares/registro', views.crear_titular, name='titular_registro'),
+    path('titular/edit/<int:titular_id>/', views.titular_edit, name="titular_edit"),
     path('titulares/registro/beneficiario', views.crear_beneficiario, name='beneficiario_registro'),
     path('titulares/registro/mascota', views.crear_mascota, name='crear_mascota'),
+    path('eliminar-contrato/<int:titular_id>/', views.eliminar_contrato, name='eliminar_contrato'),
+    
     # AJAX endpoints
+    path('obtener-titulares/', views.obtener_titulares_paginados, name='obtener_titulares_paginados'),
     path('obtener-contrato/<int:titular_id>/', views.obtener_contrato, name='obtener_contrato'),
     path('obtener-miembros/<int:titular_id>/', views.obtener_miembros_paginados, name='obtener_miembros_paginados'),
 ]

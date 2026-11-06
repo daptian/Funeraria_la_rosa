@@ -39,10 +39,20 @@ module.exports = {
          * Python: If you use Tailwind CSS classes in Python, uncomment the following line
          * and make sure the pattern below matches your project structure.
          */
-        // '../../**/*.py'
+        '../../**/*.py'
     ],
     theme: {
-        extend: {},
+        extend: {
+            keyframes : {
+                fadeOutUp : {
+                    '0%' : {transform: 'translateY(0)', opacity: '1'},
+                    '100%' : {transform: 'translateY(-25px)', opacity: '0'},
+                    }
+                },
+            animation : {
+                'fadeOutUp' : 'fadeOutUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+            },
+        },
     },
     plugins: [
         /**
