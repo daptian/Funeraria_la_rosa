@@ -34,7 +34,6 @@ PyYAML==6.0.3
 reportlab==5.0.0
 requests==2.34.2
 rich==15.0.0
-rlextra==5.0.0.2
 six==1.17.0
 sqlparse==0.5.5
 svglib==1.5.1
