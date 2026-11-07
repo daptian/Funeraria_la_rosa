@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils import timezone
+from django.conf import settings
 
 class Titular(models.Model):
 
@@ -69,3 +70,19 @@ class Mascota(models.Model):
 
     def __str__(self):
         return f"Nombre mascota : {self.nombre} ,Especie: {self.especie} , Titular : {self.titular}"
+
+
+class PerfilUsuario(models.Model):
+    usuario = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='perfil',
+    )
+    imagen = models.ImageField(upload_to='perfiles/', blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Perfil de usuario'
+        verbose_name_plural = 'Perfiles de usuario'
+
+    def __str__(self):
+        return f'Perfil de {self.usuario.username}'

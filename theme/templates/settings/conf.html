@@ -10,6 +10,14 @@
                 </div>
             </div>
 
+            {% if messages %}
+                <div class="mb-5 space-y-2">
+                    {% for message in messages %}
+                        <div class="rounded-lg border border-[#D4B96A]/30 bg-white px-4 py-3 text-sm text-[#5a4a35]">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
             <div>
                 <h3 class="text-sm text-[#9a8a70] uppercase">Configuración de planes</h3>
                 {% if configuration %}
@@ -36,7 +44,56 @@
             </div>
 
             <div>
-                <h3 class="text-sm text-[#9a8a70] uppercase">Configuración de Usuario</h3>
+                <h3 class="text-sm text-[#9a8a70] uppercase">Configuración de usuario</h3>
+                <div class="mt-4 grid gap-4 lg:grid-cols-2">
+                    <section class="rounded-xl border border-[#D4B96A]/25 bg-white p-5">
+                        <h4 class="mb-1 text-base font-semibold text-[#2C1F0E]">Datos del perfil</h4>
+                        <p class="mb-5 text-xs text-[#9a8a70]">Actualiza tu nombre de usuario y tu imagen de perfil.</p>
+                        <div class="mb-5 flex items-center gap-4">
+                            {% if perfil.imagen %}
+                                <img src="{{ perfil.imagen.url }}" alt="Imagen de perfil" class="h-16 w-16 rounded-full border border-[#D4B96A]/40 object-cover">
+                            {% else %}
+                                <div class="flex h-16 w-16 items-center justify-center rounded-full border border-[#D4B96A]/40 bg-[#1C1410] text-xl font-medium text-[#D4B96A]">{{ request.user.username|first|upper }}</div>
+                            {% endif %}
+                            <div>
+                                <div class="text-sm font-medium text-[#2C1F0E]">{{ request.user.username }}</div>
+                                <div class="text-xs text-[#9a8a70]">Sesión actual</div>
+                            </div>
+                        </div>
+                        <form method="POST" action="{% url 'actualizar_perfil' %}" enctype="multipart/form-data" class="space-y-4">
+                            {% csrf_token %}
+                            <div>
+                                <label for="{{ perfil_form.username.id_for_label }}" class="mb-1 block text-xs font-medium text-[#5a4a35]">Nombre de usuario</label>
+                                {{ perfil_form.username }}
+                                {% for error in perfil_form.username.errors %}<p class="mt-1 text-xs text-red-700">{{ error }}</p>{% endfor %}
+                            </div>
+                            <div>
+                                <label for="{{ imagen_form.imagen.id_for_label }}" class="mb-1 block text-xs font-medium text-[#5a4a35]">Imagen de perfil</label>
+                                {{ imagen_form.imagen }}
+                                {% for error in imagen_form.imagen.errors %}<p class="mt-1 text-xs text-red-700">{{ error }}</p>{% endfor %}
+                                <p class="mt-1 text-[11px] text-[#9a8a70]">Selecciona una imagen para reemplazar la actual; puedes dejarlo vacío para conservarla.</p>
+                            </div>
+                            <button type="submit" class="rounded-lg bg-[#1C1410] px-4 py-2.5 text-xs font-medium text-[#D4B96A] transition-colors hover:bg-[#2e1f14]">Guardar perfil</button>
+                        </form>
+                    </section>
+
+                    <section class="rounded-xl border border-[#D4B96A]/25 bg-white p-5">
+                        <h4 class="mb-1 text-base font-semibold text-[#2C1F0E]">Cambiar contraseña</h4>
+                        <p class="mb-5 text-xs text-[#9a8a70]">Confirma tu contraseña actual y elige una nueva.</p>
+                        <form method="POST" action="{% url 'cambiar_contrasena' %}" class="space-y-4">
+                            {% csrf_token %}
+                            {% for field in password_form %}
+                                <div>
+                                    <label for="{{ field.id_for_label }}" class="mb-1 block text-xs font-medium text-[#5a4a35]">{{ field.label }}</label>
+                                    {{ field }}
+                                    {% if field.help_text %}<div class="mt-1 text-[11px] text-[#9a8a70]">{{ field.help_text|safe }}</div>{% endif %}
+                                    {% for error in field.errors %}<p class="mt-1 text-xs text-red-700">{{ error }}</p>{% endfor %}
+                                </div>
+                            {% endfor %}
+                            <button type="submit" class="rounded-lg bg-[#D4B96A] px-4 py-2.5 text-xs font-semibold text-[#1C1410] transition-colors hover:bg-[#c4a95a]">Actualizar contraseña</button>
+                        </form>
+                    </section>
+                </div>
             </div>
         </div>
 

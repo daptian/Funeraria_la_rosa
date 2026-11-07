@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404
+from datetime import datetime
+from django.utils import timezone
 from django.template import loader
 from django.db.models import Q
-from .models import Titular, Beneficiario, Mascota
+from .models import Titular, Beneficiario, Mascota, PerfilUsuario
 from django.http import HttpResponse, JsonResponse
-from .forms import TitularForm, BeneficiarioForm, MascotaForm
+from .forms import TitularForm, BeneficiarioForm, MascotaForm, PerfilUsuarioForm, ImagenPerfilForm, CambioContrasenaForm
 from django.shortcuts import redirect
 from django.core.paginator import Paginator
 from payment.models import Pago, Plan
@@ -12,6 +14,7 @@ from django.core.paginator import Paginator
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from payment.forms import PlanForm
 from django.contrib import messages
@@ -74,6 +77,86 @@ def eliminar_contrato(request, titular_id):
     titular.delete()
     return JsonResponse({'success': True, 'message': 'Contrato eliminado correctamente.'})
 
+
+@login_required
+def beneficiarios_list(request):
+    query = request.GET.get('q', '').strip()
+    tipo = request.GET.get('tipo', '').strip()
+    beneficiarios = Beneficiario.objects.select_related('titular').order_by(
+        'titular__apellido', 'titular__nombre', 'nombre_completo'
+    )
+    mascotas = Mascota.objects.select_related('titular').order_by(
+        'titular__apellido', 'titular__nombre', 'nombre'
+    )
+    if query:
+        beneficiarios = beneficiarios.filter(
+            Q(nombre_completo__icontains=query)
+            | Q(cedula__icontains=query)
+            | Q(titular__nombre__icontains=query)
+            | Q(titular__apellido__icontains=query)
+            | Q(titular__cedula__icontains=query)
+            | Q(titular__numero_contrato__icontains=query)
+        ).distinct()
+        mascotas = mascotas.filter(
+            Q(nombre__icontains=query)
+            | Q(especie__icontains=query)
+            | Q(titular__nombre__icontains=query)
+            | Q(titular__apellido__icontains=query)
+            | Q(titular__cedula__icontains=query)
+            | Q(titular__numero_contrato__icontains=query)
+        ).distinct()
+
+    if tipo == 'persona':
+        mascotas = Mascota.objects.none()
+    elif tipo == 'mascota':
+        beneficiarios = Beneficiario.objects.none()
+
+    miembros = [
+        {'tipo': 'beneficiario', 'objeto': item, 'titular': item.titular}
+        for item in beneficiarios
+    ] + [
+        {'tipo': 'mascota', 'objeto': item, 'titular': item.titular}
+        for item in mascotas
+    ]
+    miembros.sort(key=lambda item: (
+        item['titular'].apellido.casefold(),
+        item['titular'].nombre.casefold(),
+        item['tipo'],
+        (item['objeto'].nombre_completo if item['tipo'] == 'beneficiario' else item['objeto'].nombre or '').casefold(),
+    ))
+    page_obj = Paginator(miembros, 15).get_page(request.GET.get('page'))
+    return render(request, 'beneficiarios.html', {
+        'page_obj': page_obj,
+        'query': query,
+        'tipo': tipo,
+    })
+
+
+@login_required
+def eliminar_beneficiario(request, titular_id, beneficiario_id):
+    if request.method != 'POST':
+        return HttpResponse(status=405)
+
+    titular = get_object_or_404(Titular, pk=titular_id)
+    beneficiario = get_object_or_404(Beneficiario, pk=beneficiario_id, titular=titular)
+    beneficiario.delete()
+    calcular_monto_plan(titular.id)
+    messages.success(request, 'El beneficiario fue eliminado y se actualizó el valor del plan.')
+    return redirect('beneficiarios')
+
+
+@login_required
+def eliminar_mascota_beneficiario(request, titular_id, mascota_id):
+    if request.method != 'POST':
+        return HttpResponse(status=405)
+
+    titular = get_object_or_404(Titular, pk=titular_id)
+    mascota = get_object_or_404(Mascota, pk=mascota_id, titular=titular)
+    mascota.delete()
+    calcular_monto_plan(titular.id)
+    messages.success(request, 'La mascota fue eliminada y se actualizó el valor del plan.')
+    return redirect('beneficiarios')
+
 @login_required
 def titular_dashboard(request):
     
@@ -98,8 +181,10 @@ def crear_titular(request):
     form = TitularForm(request.POST or None)
     titulares = Titular.objects.order_by('-id')
     if request.method == 'POST' and form.is_valid():
+        esta_al_dia = form.cleaned_data['esta_al_dia']
+        fecha_ultimo_pago = form.cleaned_data['fecha_ultimo_pago'] if esta_al_dia else None
         nuevo_titular = form.save()
-        crear_primer_pago(nuevo_titular)
+        crear_primer_pago(nuevo_titular, fecha_ultimo_pago)
         return redirect('titular_list')
     context = {
         'form' : form,
@@ -108,11 +193,14 @@ def crear_titular(request):
     return render(request, 'titular.html', context)
 
 
-def crear_primer_pago(titular_instacia):
+def crear_primer_pago(titular_instacia, fecha_ultimo_pago=None):
     pago = Pago(titular=titular_instacia, monto_mensual_tarifa=24000.00, monto_total_a_pagar=24000.00, monto_cargos_unicos=0)
-    pago.proximo_pago = (
-        pago.titular.fecha_ingreso + relativedelta(months=1)
-    )
+    fecha_base = fecha_ultimo_pago or pago.titular.fecha_ingreso
+    pago.proximo_pago = fecha_base + relativedelta(months=1)
+    if fecha_ultimo_pago:
+        pago.fecha_ultimo_pago = timezone.make_aware(
+            datetime.combine(fecha_ultimo_pago, datetime.min.time())
+        )
     pago.save()
     return True
 
@@ -269,6 +357,10 @@ def config_dashboard(request):
             edad_maxima=0
         )
 
+    return render(request, "settings/conf.html", _contexto_configuracion(request))
+
+
+def _contexto_configuracion(request, perfil_form=None, imagen_form=None, password_form=None):
     configuration = {
         plan.id: {
             'valor_mensual': plan.valor_mensual,
@@ -278,7 +370,53 @@ def config_dashboard(request):
             'edad_maxima': plan.edad_maxima,
         } for plan in Plan.objects.all()
     }
-    return render(request, "settings/conf.html", {'configuration': configuration})
+    perfil, _ = PerfilUsuario.objects.get_or_create(usuario=request.user)
+    return {
+        'configuration': configuration,
+        'perfil': perfil,
+        'perfil_form': perfil_form or PerfilUsuarioForm(instance=request.user),
+        'imagen_form': imagen_form or ImagenPerfilForm(instance=perfil),
+        'password_form': password_form or CambioContrasenaForm(request.user),
+    }
+
+
+@login_required
+def actualizar_perfil(request):
+    if request.method != 'POST':
+        return HttpResponse(status=405)
+
+    perfil, _ = PerfilUsuario.objects.get_or_create(usuario=request.user)
+    perfil_form = PerfilUsuarioForm(request.POST, instance=request.user)
+    imagen_form = ImagenPerfilForm(request.POST, request.FILES, instance=perfil)
+    if perfil_form.is_valid() and imagen_form.is_valid():
+        perfil_form.save()
+        imagen_form.save()
+        messages.success(request, 'Tus datos de perfil se actualizaron correctamente.')
+    else:
+        return render(request, 'settings/conf.html', _contexto_configuracion(
+            request,
+            perfil_form=perfil_form,
+            imagen_form=imagen_form,
+        ))
+    return redirect('config')
+
+
+@login_required
+def cambiar_contrasena(request):
+    if request.method != 'POST':
+        return HttpResponse(status=405)
+
+    form = CambioContrasenaForm(request.user, request.POST)
+    if form.is_valid():
+        usuario = form.save()
+        update_session_auth_hash(request, usuario)
+        messages.success(request, 'La contraseña se cambió correctamente.')
+    else:
+        return render(request, 'settings/conf.html', _contexto_configuracion(
+            request,
+            password_form=form,
+        ))
+    return redirect('config')
 
 def editar_configuracion(request, pk):
     plan = get_object_or_404(Plan, id=pk)

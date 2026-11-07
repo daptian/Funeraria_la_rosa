@@ -132,6 +132,19 @@
                             {% endif %}
                         </div>
 
+                        <div class="flex flex-col gap-2 col-span-2">
+                            <label class="flex items-center gap-2 text-[11px] font-medium text-[#5a4a35] tracking-wide" for="{{ form.esta_al_dia.id_for_label }}">
+                                {{ form.esta_al_dia }} ¿El titular va al día?
+                            </label>
+                            <div id="contenedor-fecha-ultimo-pago" class="flex flex-col gap-1.5" hidden>
+                                <label class="text-[11px] font-medium text-[#5a4a35] tracking-wide" for="{{ form.fecha_ultimo_pago.id_for_label }}">Fecha del último pago</label>
+                                {{ form.fecha_ultimo_pago }}
+                                {% if form.fecha_ultimo_pago.errors %}
+                                    <div class="text-[10px] text-white bg-[#8a2a10] rounded py-0.5 px-2 mt-0.5">{{ form.fecha_ultimo_pago.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -150,3 +163,20 @@
         <button class="cursor-default hidden" >close</button>
     </form>
 </dialog>
+
+<script>
+    (() => {
+        const checkbox = document.getElementById('{{ form.esta_al_dia.id_for_label }}');
+        const contenedorFecha = document.getElementById('contenedor-fecha-ultimo-pago');
+        const fecha = document.getElementById('{{ form.fecha_ultimo_pago.id_for_label }}');
+        if (!checkbox || !contenedorFecha || !fecha) return;
+
+        const actualizarFechaUltimoPago = () => {
+            contenedorFecha.hidden = !checkbox.checked;
+            fecha.required = checkbox.checked;
+            if (!checkbox.checked) fecha.value = '';
+        };
+        checkbox.addEventListener('change', actualizarFechaUltimoPago);
+        actualizarFechaUltimoPago();
+    })();
+</script>

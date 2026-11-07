@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block title %}La Rosa - Beneficiarios{% endblock %}
+
+{% block content %}
+<main class="flex-1 flex flex-col overflow-hidden">
+    <header class="flex items-center justify-between gap-4 bg-[#1d1411] px-6 py-4">
+        <form method="GET" action="{% url 'beneficiarios' %}" class="flex flex-wrap items-end gap-3">
+            <label class="flex flex-col gap-1 text-sm font-medium text-gray-400">
+                Buscar beneficiario o titular
+                <input type="search" name="q" value="{{ query }}" placeholder="Nombre, cédula o contrato..."
+                       class="rounded-lg border-none bg-[#362a1e] py-3 text-xs text-white placeholder:text-gray-300">
+            </label>
+            <label class="flex flex-col gap-1 text-sm font-medium text-gray-400">
+                Tipo de miembro
+                <select name="tipo" class="rounded-lg border-none bg-[#362a1e] py-3 text-xs text-white">
+                    <option value="" {% if not tipo %}selected{% endif %}>Todos</option>
+                    <option value="persona" {% if tipo == 'persona' %}selected{% endif %}>Beneficiarios persona</option>
+                    <option value="mascota" {% if tipo == 'mascota' %}selected{% endif %}>Mascotas</option>
+                </select>
+            </label>
+            <button type="submit" class="rounded-lg border border-[#D4B96A]/40 bg-[#1C1410] px-4 py-2 text-xs font-medium text-[#D4B96A] hover:bg-[#2e1f14]">Buscar</button>
+            {% if query or tipo %}<a href="{% url 'beneficiarios' %}" class="px-2 py-2 text-xs text-[#cbbda5] hover:text-[#D4B96A]">Limpiar</a>{% endif %}
+        </form>
+        <div class="flex items-center gap-2 pl-4" style="border-left: 0.5px solid #D4B96A30;">
+            <div class="flex h-7 w-7 items-center justify-center rounded-full text-xs font-medium" style="background:#D4B96A22;border:1px solid #D4B96A44;color:#D4B96A;">A</div>
+            <span class="text-xs font-medium" style="color:#c0a870;">Admin</span>
+        </div>
+    </header>
+
+    <section class="flex-1 overflow-y-auto p-6">
+        <div class="mb-5">
+            <h1 class="text-xl font-medium text-[#2C1F0E]">Beneficiarios</h1>
+            <p class="mt-0.5 text-xs text-[#9a8a70]">Consulta beneficiarios y mascotas asociados a cada titular y gestiona sus registros.</p>
+        </div>
+
+        {% if messages %}
+            <div class="mb-4 space-y-2">
+                {% for message in messages %}<div class="rounded-lg border border-[#D4B96A]/30 bg-white px-4 py-3 text-xs text-[#5a4a35]">{{ message }}</div>{% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="overflow-hidden rounded-xl bg-white" style="border:0.5px solid #D4B96A25;">
+            <div class="w-full overflow-x-auto">
+                <table class="w-full border-collapse text-left" style="white-space:nowrap;">
+                    <thead>
+                        <tr class="border-b border-[#D4B96A]/20 bg-[#F7F4EE] text-[10px] uppercase tracking-[0.1em] text-[#9a8a70]">
+                            <th class="px-5 py-3">Miembro</th>
+                            <th class="px-5 py-3">Tipo</th>
+                            <th class="px-5 py-3">Cédula</th>
+                            <th class="px-5 py-3">Parentesco / Especie</th>
+                            <th class="px-5 py-3">Titular asociado</th>
+                            <th class="px-5 py-3">Contrato</th>
+                            <th class="px-5 py-3 text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-[#f0ece4] text-xs text-[#2C1F0E]">
+                        {% for miembro in page_obj %}
+                        <tr class="hover:bg-[#FAF8F3]">
+                            <td class="px-5 py-4 font-medium">
+                                {% if miembro.tipo == 'beneficiario' %}{{ miembro.objeto.nombre_completo }}{% else %}{{ miembro.objeto.nombre|default:'Mascota sin nombre' }}{% endif %}
+                            </td>
+                            <td class="px-5 py-4">
+                                {% if miembro.tipo == 'beneficiario' %}<span class="rounded-full bg-[#D4B96A]/15 px-2 py-1 text-[10px] text-[#7a6a20]">Beneficiario</span>{% else %}<span class="rounded-full bg-[#e9e1f5] px-2 py-1 text-[10px] text-[#604b7a]">Mascota</span>{% endif %}
+                            </td>
+                            <td class="px-5 py-4 font-mono text-[#5a4a35]">{% if miembro.tipo == 'beneficiario' %}{{ miembro.objeto.cedula }}{% else %}—{% endif %}</td>
+                            <td class="px-5 py-4 text-[#5a4a35]">{% if miembro.tipo == 'beneficiario' %}{{ miembro.objeto.parentesco }}{% else %}{{ miembro.objeto.especie }}{% endif %}</td>
+                            <td class="px-5 py-4">
+                                <div class="font-medium">{{ miembro.titular.nombre }} {{ miembro.titular.apellido }}</div>
+                                <div class="mt-0.5 text-[10px] text-[#9a8a70]">CC {{ miembro.titular.cedula }}</div>
+                            </td>
+                            <td class="px-5 py-4 text-[#5a4a35]">{{ miembro.titular.numero_contrato }}</td>
+                            <td class="px-5 py-4 text-center">
+                                {% if miembro.tipo == 'beneficiario' %}
+                                <form method="POST" action="{% url 'eliminar_beneficiario' miembro.titular.id miembro.objeto.id %}" onsubmit="return confirm('¿Eliminar a {{ miembro.objeto.nombre_completo|escapejs }} del contrato de {{ miembro.titular.nombre|escapejs }} {{ miembro.titular.apellido|escapejs }}? Esta acción no se puede deshacer.');">
+                                {% else %}
+                                <form method="POST" action="{% url 'eliminar_mascota_beneficiario' miembro.titular.id miembro.objeto.id %}" onsubmit="return confirm('¿Eliminar esta mascota del contrato de {{ miembro.titular.nombre|escapejs }} {{ miembro.titular.apellido|escapejs }}? Esta acción no se puede deshacer.');">
+                                {% endif %}
+                                    {% csrf_token %}
+                                    <button type="submit" class="rounded-lg border border-red-200 px-3 py-2 text-[11px] font-medium text-red-700 transition-colors hover:bg-red-50">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="7" class="px-5 py-12 text-center text-sm text-[#9a8a70]">No se encontraron beneficiarios ni mascotas.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {% if page_obj.paginator.num_pages > 1 %}
+        <nav class="mt-4 flex items-center justify-between text-xs text-[#7a6a52]" aria-label="Paginación de beneficiarios">
+            <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+            <div class="flex gap-2">
+                {% if page_obj.has_previous %}<a class="rounded-lg border border-[#D4B96A]/30 bg-white px-3 py-2 hover:bg-[#F7F4EE]" href="?q={{ query|urlencode }}&tipo={{ tipo|urlencode }}&page={{ page_obj.previous_page_number }}">Anterior</a>{% endif %}
+                {% if page_obj.has_next %}<a class="rounded-lg border border-[#D4B96A]/30 bg-white px-3 py-2 hover:bg-[#F7F4EE]" href="?q={{ query|urlencode }}&tipo={{ tipo|urlencode }}&page={{ page_obj.next_page_number }}">Siguiente</a>{% endif %}
+            </div>
+        </nav>
+        {% endif %}
+    </section>
+</main>
+{% endblock %}

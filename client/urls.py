@@ -10,8 +10,13 @@ urlpatterns = [
     #Others
     path('dashboard/', views.titular_dashboard, name='dashboard'),
     path('config/', views.config_dashboard ,name="config"),
+    path('config/perfil/', views.actualizar_perfil, name='actualizar_perfil'),
+    path('config/contrasena/', views.cambiar_contrasena, name='cambiar_contrasena'),
     path('config/editar/<int:pk>/', views.editar_configuracion, name='editar_configuracion'),
     path('titulares/', views.titular_list, name='titular_list'),
+    path('beneficiarios/', views.beneficiarios_list, name='beneficiarios'),
+    path('titulares/<int:titular_id>/beneficiarios/<int:beneficiario_id>/eliminar/', views.eliminar_beneficiario, name='eliminar_beneficiario'),
+    path('titulares/<int:titular_id>/mascotas/<int:mascota_id>/eliminar/', views.eliminar_mascota_beneficiario, name='eliminar_mascota_beneficiario'),
     path('titulares/registro', views.crear_titular, name='titular_registro'),
     path('titular/edit/<int:titular_id>/', views.titular_edit, name="titular_edit"),
     path('titulares/registro/beneficiario', views.crear_beneficiario, name='beneficiario_registro'),

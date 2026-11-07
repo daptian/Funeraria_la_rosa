@@ -1,7 +1,61 @@
 from django import forms
-from .models import Titular, Beneficiario, Mascota
+from .models import Titular, Beneficiario, Mascota, PerfilUsuario
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import PasswordChangeForm
+
+User = get_user_model()
+
+
+class PerfilUsuarioForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username']
+        widgets = {
+            'username': forms.TextInput(attrs={
+                'class': "w-full rounded-lg border border-[#D4B96A]/40 bg-white p-2.5 text-sm text-[#2C1F0E] focus:border-[#D4B96A] focus:outline-none",
+                'autocomplete': 'username',
+            }),
+        }
+
+
+class ImagenPerfilForm(forms.ModelForm):
+    class Meta:
+        model = PerfilUsuario
+        fields = ['imagen']
+        widgets = {
+            'imagen': forms.ClearableFileInput(attrs={
+                'accept': 'image/*',
+                'class': 'block w-full text-xs text-[#5a4a35] file:mr-3 file:rounded-lg file:border-0 file:bg-[#D4B96A]/20 file:px-3 file:py-2 file:text-xs file:font-medium file:text-[#5a4a35]',
+            }),
+        }
+
+
+class CambioContrasenaForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': "w-full rounded-lg border border-[#D4B96A]/40 bg-white p-2.5 text-sm text-[#2C1F0E] focus:border-[#D4B96A] focus:outline-none",
+                'autocomplete': 'current-password' if name == 'old_password' else 'new-password',
+            })
 
 class TitularForm(forms.ModelForm):
+    esta_al_dia = forms.BooleanField(
+        required=False,
+        label='¿El titular va al día?',
+        widget=forms.CheckboxInput(attrs={
+            'class': 'h-4 w-4 accent-[#D4B96A]',
+        }),
+    )
+    fecha_ultimo_pago = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={
+            'type': 'date',
+            'class': "w-full bg-white border border-[#D4B96A]/40 text-[#2C1F0E] text-xs rounded-lg p-2 outline-none transition-all font-['Inter',sans-serif] cursor-pointer",
+        }),
+        label='Fecha del último pago',
+    )
+
     class Meta:
         model = Titular
         fields = '__all__'
@@ -51,6 +105,18 @@ class TitularForm(forms.ModelForm):
                 'type': 'date'
             }),
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        esta_al_dia = cleaned_data.get('esta_al_dia')
+        fecha_ultimo_pago = cleaned_data.get('fecha_ultimo_pago')
+
+        if esta_al_dia and not fecha_ultimo_pago:
+            self.add_error('fecha_ultimo_pago', 'Indica la fecha del último pago.')
+        elif not esta_al_dia and fecha_ultimo_pago:
+            self.add_error('fecha_ultimo_pago', 'Marca que el titular va al día para ingresar esta fecha.')
+
+        return cleaned_data
 
 class BeneficiarioForm(forms.ModelForm):
     class Meta:
